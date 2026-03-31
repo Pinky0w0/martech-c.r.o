@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MarTech & C.R.O. Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  :root {
+    --brand: #1A56DB;
+    --brand-dark: #1240A8;
+    --brand-light: #EBF2FF;
+    --accent-green: #0E9F6E;
+    --accent-amber: #D97706;
+    --accent-indigo: #5145CD;
+    --dark: #0F172A;
+    --dark-2: #1E293B;
+    --mid: #475569;
+    --light: #94A3B8;
+    --border: #E2E8F0;
+    --bg: #F8FAFC;
+    --white: #FFFFFF;
+    --sidebar-w: 260px;
+    --radius: 14px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.06);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ─── SIDEBAR ─── */
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    flex-shrink: 0;
+  }
+
+  .sidebar-logo {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo-mark {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 38px;
+    height: 38px;
+    background: var(--brand);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .logo-text strong {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 17px;
+    color: var(--dark);
+    letter-spacing: -0.3px;
+  }
+
+  .logo-text span {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--light);
+    font-weight: 600;
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    padding: 16px 12px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--mid);
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+    transition: all 0.18s;
+    position: relative;
+  }
+
+  .nav-item:hover { background: var(--bg); color: var(--dark); }
+
+  .nav-item.active {
+    background: var(--brand-light);
+    color: var(--brand);
+    font-weight: 600;
+  }
+
+  .nav-item .nav-icon { font-size: 18px; flex-shrink: 0; }
+
+  .nav-badge {
+    margin-left: auto;
+    background: #FEF3C7;
+    color: #92400E;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .sidebar-footer {
+    padding: 16px 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .team-badge {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .team-badge .trophy { font-size: 24px; margin-bottom: 6px; display: block; }
+  .team-badge p { font-size: 11px; color: var(--mid); font-weight: 600; }
+
+  /* ─── MAIN ─── */
+  .main {
+    flex: 1;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  /* ─── VIEWS ─── */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ─── MOBILE HEADER ─── */
+  .mobile-header {
+    display: none;
+    position: sticky;
+    top: 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 20px;
+    z-index: 90;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mobile-header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    color: var(--brand);
+  }
+
+  .hamburger {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--mid);
+  }
+
+  /* ─── MODAL OVERLAY ─── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15,23,42,0.6);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal-box {
+    background: var(--white);
+    border-radius: 18px;
+    padding: 32px;
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    animation: modalIn 0.25s ease;
+  }
+
+  @keyframes modalIn {
+    from { transform: scale(0.95) translateY(12px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: var(--bg);
+    border: none;
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--mid);
+    line-height: 1;
+  }
+
+  .modal-close:hover { background: var(--border); }
+
+  /* VIDEO MODAL */
+  .video-modal .modal-box {
+    max-width: 720px;
+    padding: 20px;
+    background: #000;
+  }
+
+  .video-modal .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .video-modal .video-wrapper iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+
+  .video-modal .modal-close {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+
+  /* ─── MOBILE MENU ─── */
+  .mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15,23,42,0.5);
+    z-index: 150;
+  }
+
+  .mobile-menu-overlay.open { display: block; }
+
+  .mobile-menu-panel {
+    position: fixed;
+    top: 0; left: 0;
+    width: 280px;
+    height: 100%;
+    background: var(--white);
+    z-index: 160;
+    padding: 28px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+
+  .mobile-menu-panel.open { transform: translateX(0); }
+
+  /* ─── PAGE CONTENT ─── */
+  .page-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 36px 36px 60px;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(135deg, var(--dark) 0%, #1a2744 60%, #1A56DB22 100%);
+    border-radius: var(--radius);
+    padding: 56px 48px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: var(--brand);
+    border-radius: 50%;
+    opacity: 0.08;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; right: 100px;
+    width: 200px; height: 200px;
+    background: #0E9F6E;
+    border-radius: 50%;
+    opacity: 0.06;
+  }
+
+  .hero h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero h2 .highlight { color: #60A5FA; }
+
+  .hero p {
+    font-size: 17px;
+    color: #94A3B8;
+    max-width: 520px;
+    line-height: 1.65;
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── BUTTONS ─── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.18s;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn-primary {
+    background: var(--brand);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(26,86,219,0.35);
+  }
+
+  .btn-primary:hover {
+    background: var(--brand-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(26,86,219,0.4);
+  }
+
+  .btn-ghost {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .btn-ghost:hover {
+    background: rgba(255,255,255,0.18);
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    background: var(--white);
+    color: var(--dark);
+    border: 1.5px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+
+  .btn-outline:hover { background: var(--bg); border-color: var(--brand); color: var(--brand); }
+
+  .btn-dark {
+    background: var(--dark);
+    color: #fff;
+  }
+
+  .btn-dark:hover { background: var(--dark-2); transform: translateY(-1px); }
+
+  .btn-sm { padding: 8px 14px; font-size: 12px; border-radius: 8px; }
+
+  /* ─── SECTION TITLE ─── */
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+
+  .section-sub {
+    font-size: 14px;
+    color: var(--mid);
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  /* ─── CARDS GRID ─── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .card p { font-size: 13px; color: var(--mid); line-height: 1.6; }
+
+  /* colored cards */
+  .card-indigo { background: #EEF2FF; border-color: #C7D2FE; }
+  .card-indigo h3 { color: #3730A3; }
+  .card-indigo p { color: #4338CA; opacity: 0.8; }
+
+  .card-amber { background: #FFFBEB; border-color: #FDE68A; }
+  .card-amber h3 { color: #92400E; }
+  .card-amber p { color: #B45309; opacity: 0.8; }
+
+  /* ─── CYCLE STEPS ─── */
+  .cycle-step {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 16px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.18s;
+  }
+
+  .cycle-step:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+
+  .step-num {
+    width: 44px; height: 44px;
+    background: var(--bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--mid);
+    margin: 0 auto 14px;
+  }
+
+  .cycle-step:last-child .step-num {
+    background: var(--brand-light);
+    color: var(--brand);
+  }
+
+  .cycle-step h4 {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+
+  .cycle-step p { font-size: 12px; color: var(--light); }
+
+  /* ─── IMPACT SECTION ─── */
+  .impact-section {
+    background: var(--dark);
+    border-radius: var(--radius);
+    padding: 48px;
+    margin-top: 32px;
+  }
+
+  .impact-section h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .impact-section > p {
+    color: #64748B;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 36px;
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-bottom: 36px;
+  }
+
+  .metric {
+    text-align: center;
+    padding: 20px;
+    border-right: 1px solid #1E293B;
+  }
+
+  .metric:last-child { border-right: none; }
+
+  .metric-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .metric-num.green { color: #34D399; }
+  .metric-num.blue { color: #60A5FA; }
+  .metric-num.amber { color: #FBBF24; }
+  .metric p { color: #94A3B8; font-size: 13px; }
+
+  .chart-wrap {
+    background: #1E293B;
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .chart-wrap canvas { max-height: 280px; }
+
+  /* ─── SECTION DIVIDER ─── */
+  .section-block { margin-bottom: 36px; }
+
+  /* ─── PAGE HEADER (colored) ─── */
+  .page-header {
+    border-radius: var(--radius);
+    padding: 36px 40px;
+    margin-bottom: 28px;
+  }
+
+  .page-header h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+
+  .page-header p { font-size: 15px; opacity: 0.85; }
+
+  .header-amber { background: #FFFBEB; border: 1px solid #FDE68A; }
+  .header-amber h2 { color: #92400E; }
+  .header-amber p { color: #B45309; }
+
+  .header-blue { background: var(--brand); }
+  .header-blue h2, .header-blue p { color: #fff; }
+  .header-blue p { opacity: 0.85; }
+
+  .header-dark { background: var(--dark); }
+  .header-dark h2, .header-dark p { color: #fff; }
+  .header-dark p { opacity: 0.7; }
+
+  /* ─── NEWS ARTICLES ─── */
+  .news-article {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    transition: box-shadow 0.18s;
+    margin-bottom: 16px;
+  }
+
+  .news-article:hover { box-shadow: var(--shadow-lg); }
+
+  .news-thumb {
+    width: 120px;
+    flex-shrink: 0;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+  }
+
+  .news-body {
+    padding: 24px;
+    flex: 1;
+  }
+
+  .news-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+
+  .tag-critical { background: #FEE2E2; color: #991B1B; }
+  .tag-new { background: #D1FAE5; color: #065F46; }
+
+  .news-body h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--dark);
+  }
+
+  .news-body p { font-size: 13px; color: var(--mid); line-height: 1.65; margin-bottom: 16px; }
+
+  .news-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--brand);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: 'DM Sans', sans-serif;
+    padding: 0;
+  }
+
+  .news-link:hover { color: var(--brand-dark); }
+
+  /* ─── ACCORDION ─── */
+  .accordion-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    transition: box-shadow 0.18s;
+  }
+
+  .accordion-item:hover { box-shadow: var(--shadow); }
+
+  .accordion-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--dark);
+    gap: 16px;
+  }
+
+  .accordion-btn:hover { background: var(--bg); }
+
+  .accordion-icon {
+    font-size: 20px;
+    color: var(--light);
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    border-top: 1px solid transparent;
+  }
+
+  .accordion-content.open {
+    max-height: 600px;
+    border-top-color: var(--border);
+  }
+
+  .accordion-body {
+    padding: 20px 22px;
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.75;
+    background: var(--bg);
+  }
+
+  .accordion-body strong { color: var(--dark); }
+
+  /* ─── TOOLS CARDS ─── */
+  .tool-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+
+  .tool-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+
+  .tool-icon-wrap {
+    width: 60px; height: 60px;
+    background: var(--bg);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 18px;
+  }
+
+  .tool-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .tool-card p {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 20px;
+  }
+
+  .tool-btns { display: flex; gap: 8px; }
+
+  /* ─── CTA BANNER ─── */
+  .cta-banner {
+    background: linear-gradient(135deg, var(--brand) 0%, #5145CD 100%);
+    border-radius: var(--radius);
+    padding: 40px;
+    text-align: center;
+    margin-top: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-banner::before {
+    content: '🎓';
+    position: absolute;
+    font-size: 120px;
+    top: -20px; left: -20px;
+    opacity: 0.08;
+    line-height: 1;
+  }
+
+  .cta-banner h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-banner p {
+    color: rgba(255,255,255,0.8);
+    font-size: 14px;
+    max-width: 440px;
+    margin: 0 auto 24px;
+    position: relative;
+    z-index: 1;
+    line-height: 1.65;
+  }
+
+  .btn-cta {
+    background: #fff;
+    color: var(--brand);
+    font-weight: 700;
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.18s;
+    font-family: 'DM Sans', sans-serif;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-cta:hover { transform: scale(1.04); box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+
+  /* ─── REPOS ─── */
+  .repo-hero {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: flex;
+    overflow: hidden;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+  }
+
+  .repo-thumb {
+    width: 160px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 56px;
+    flex-shrink: 0;
+  }
+
+  .repo-body {
+    padding: 32px;
+    flex: 1;
+  }
+
+  .repo-body h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+
+  .repo-body p {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+
+  .data-env-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: border-color 0.18s, transform 0.18s;
+    cursor: default;
+  }
+
+  .data-env-card:hover {
+    border-color: var(--brand);
+    transform: translateY(-2px);
+  }
+
+  .data-env-card .env-icon {
+    width: 52px; height: 52px;
+    background: var(--bg);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+
+  .data-env-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  /* ─── SOLICITUDES ─── */
+  .jira-card {
+    background: var(--brand-light);
+    border: 2px solid #BFDBFE;
+    border-radius: var(--radius);
+    padding: 48px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .jira-card::after {
+    content: '🎟️';
+    position: absolute;
+    font-size: 120px;
+    top: -20px; right: -20px;
+    opacity: 0.07;
+    line-height: 1;
+  }
+
+  .jira-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--brand-dark);
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .jira-card p {
+    font-size: 15px;
+    color: #1E40AF;
+    max-width: 440px;
+    margin: 0 auto 28px;
+    line-height: 1.65;
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-jira {
+    background: var(--brand);
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 16px 40px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    box-shadow: 0 6px 20px rgba(26,86,219,0.35);
+    transition: all 0.18s;
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+  }
+
+  .btn-jira:hover { transform: scale(1.03); background: var(--brand-dark); }
+
+  .jira-warning {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.7);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #1E40AF;
+    margin-top: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── FORM ─── */
+  .feedback-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px;
+  }
+
+  .feedback-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  .feedback-card > p {
+    text-align: center;
+    color: var(--mid);
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--dark);
+    background: var(--white);
+    transition: border-color 0.18s, box-shadow 0.18s;
+    outline: none;
+  }
+
+  .form-control:focus {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(26,86,219,0.12);
+  }
+
+  textarea.form-control { resize: none; }
+
+  .form-submit {
+    width: 100%;
+    max-width: 500px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* ─── TOAST ─── */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: #0F172A;
+    color: #fff;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 999;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+
+  .toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .mobile-header { display: flex; }
+    .page-inner { padding: 20px 16px 60px; }
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .hero { padding: 32px 24px; }
+    .impact-section { padding: 28px 20px; }
+    .metrics-grid { grid-template-columns: 1fr; }
+    .metric { border-right: none; border-bottom: 1px solid #1E293B; }
+    .news-article { flex-direction: column; }
+    .news-thumb { width: 100%; height: 80px; }
+    .repo-hero { flex-direction: column; }
+    .repo-thumb { width: 100%; height: 100px; }
+    .jira-card { padding: 28px 20px; }
+  }
+
+  @media (max-width: 900px) {
+    .grid-3 { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ─── SCROLL ─── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+  /* ─── FADE IN ─── */
+  .view.active {
+    animation: fadeUp 0.3s ease;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ SIDEBAR ═══════════════════════════════ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <a class="logo-mark" href="#" onclick="navigate('home')">
+      <div class="logo-icon">🚀</div>
+      <div class="logo-text">
+        <strong>MarTech</strong>
+        <span>Hub Central</span>
+      </div>
+    </a>
+  </div>
+
+  <nav class="sidebar-nav">
+    <button class="nav-item active" data-target="home">
+      <span class="nav-icon">🏠</span> Inicio
+    </button>
+    <button class="nav-item" data-target="news">
+      <span class="nav-icon">📰</span> Noticias
+      <span class="nav-badge">Nueva</span>
+    </button>
+    <button class="nav-item" data-target="dictionary">
+      <span class="nav-icon">📖</span> Diccionario
+    </button>
+    <button class="nav-item" data-target="tools">
+      <span class="nav-icon">🛠️</span> Herramientas
+    </button>
+    <button class="nav-item" data-target="repos">
+      <span class="nav-icon">📁</span> Repositorios
+    </button>
+    <button class="nav-item" data-target="support">
+      <span class="nav-icon">🛎️</span> Solicitudes
+    </button>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="team-badge">
+      <span class="trophy">🏆</span>
+      <p>Equipo C.R.O. & MarTech</p>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══════════════════════════════ MOBILE HEADER ═══════════════════════════════ -->
+<div class="mobile-header">
+  <h1>🚀 MarTech Hub</h1>
+  <button class="hamburger" id="hamburgerBtn">☰</button>
+</div>
+
+<!-- Mobile menu -->
+<div class="mobile-menu-overlay" id="mobileOverlay"></div>
+<div class="mobile-menu-panel" id="mobilePanel">
+  <button class="nav-item" data-target="home" data-mobile="true">🏠 Inicio</button>
+  <button class="nav-item" data-target="news" data-mobile="true">📰 Noticias</button>
+  <button class="nav-item" data-target="dictionary" data-mobile="true">📖 Diccionario</button>
+  <button class="nav-item" data-target="tools" data-mobile="true">🛠️ Herramientas</button>
+  <button class="nav-item" data-target="repos" data-mobile="true">📁 Repositorios</button>
+  <button class="nav-item" data-target="support" data-mobile="true">🛎️ Solicitudes</button>
+</div>
+
+<!-- ═══════════════════════════════ MAIN ═══════════════════════════════ -->
+<main class="main">
+
+  <!-- ────────── VIEW: INICIO ────────── -->
+  <section id="home" class="view active">
+    <div class="page-inner">
+
+      <div class="hero">
+        <h2>Bienvenidos a <span class="highlight">MarTech & C.R.O.</span> 🚀</h2>
+        <p>Impulsando la experiencia digital del banco con datos, análisis y experimentación. Descubre cómo transformamos la información en crecimiento.</p>
+        <div class="hero-btns">
+          <button class="btn btn-primary" onclick="navigate('dictionary')">Aprender lo básico 🧠</button>
+          <button class="btn btn-ghost" onclick="navigate('support')">Crear Solicitud en Jira 📝</button>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <p class="section-title">Visión General</p>
+        <p class="section-sub">Bienvenido al Hub Central. Esta sección proporciona un resumen de nuestra identidad, nuestro ciclo operativo y el impacto directo que generamos en los resultados del banco mediante la optimización de datos.</p>
+
+        <div class="grid-2">
+          <div class="card card-indigo">
+            <span class="card-icon">🤝</span>
+            <h3>Área Transversal</h3>
+            <p>Apoyamos a todos los equipos y productos del banco por igual, sin exclusividades. Nuestro objetivo es el crecimiento global de la organización.</p>
+          </div>
+          <div class="card card-amber">
+            <span class="card-icon">⚖️</span>
+            <h3>Regla de Trabajo</h3>
+            <p>Orden de Llegada. Para asegurar calidad y justicia, tomamos las solicitudes en estricto orden de ingreso, no por nivel de supuesta urgencia.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <p class="section-title" style="text-align:center; margin-bottom:20px;">Nuestro Ciclo de Trabajo</p>
+        <div class="grid-4">
+          <div class="cycle-step">
+            <div class="step-num">1</div>
+            <h4>Marcar</h4>
+            <p>GTM / GA4</p>
+          </div>
+          <div class="cycle-step">
+            <div class="step-num">2</div>
+            <h4>Medir</h4>
+            <p>Google Analytics</p>
+          </div>
+          <div class="cycle-step">
+            <div class="step-num">3</div>
+            <h4>Analizar</h4>
+            <p>Looker / BigQuery</p>
+          </div>
+          <div class="cycle-step">
+            <div class="step-num" style="background:var(--brand-light);color:var(--brand);">4</div>
+            <h4>Optimizar</h4>
+            <p>A/B Test con VWO</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="impact-section">
+        <h3>El Impacto de Nuestro Trabajo</h3>
+        <p>Resultados de negocio generados a través de estrategias de optimización y marcaje preciso.</p>
+
+        <div class="metrics-grid">
+          <div class="metric">
+            <div class="metric-num green">+2.150</div>
+            <p>Cuentas de planes extra</p>
+          </div>
+          <div class="metric">
+            <div class="metric-num blue">+1.850</div>
+            <p>Firmas generadas</p>
+          </div>
+          <div class="metric">
+            <div class="metric-num amber">+6.000</div>
+            <p>Leads extra anuales</p>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <canvas id="impactChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ────────── VIEW: NOTICIAS ────────── -->
+  <section id="news" class="view">
+    <div class="page-inner">
+
+      <div class="page-header header-amber">
+        <h2>Novedades y Actualizaciones 🔔</h2>
+        <p>Entérate de los últimos cambios en nuestros diseños, Figmas y documentos de marcaje.</p>
+      </div>
+
+      <p class="section-sub" style="margin-bottom:28px;">Mantente al día con las últimas actualizaciones. Esta página es clave para mantener a los equipos de UX/UI y Desarrolladores informados sobre cambios en estándares, nuevas plantillas y actualizaciones de flujos que impactan el marcaje de analítica.</p>
+
+      <div class="news-article">
+        <div class="news-thumb">🚨</div>
+        <div class="news-body">
+          <span class="news-tag tag-critical">Actualización Crítica</span>
+          <h3>Actualización en Figma: Nuevo Flujo de Onboarding</h3>
+          <p>Se han actualizado las pantallas del paso 3. Por favor, revisen el nuevo Figma antes de solicitar la revisión de marcaje para asegurar que los eventos coincidan con la nueva interfaz.</p>
+          <button class="news-link" onclick="showToast('Abriendo Figma en nueva ventana...')">Ver nuevo Figma 🎨 →</button>
+        </div>
+      </div>
+
+      <div class="news-article">
+        <div class="news-thumb">📄</div>
+        <div class="news-body">
+          <span class="news-tag tag-new">Nuevo Estándar</span>
+          <h3>Nuevo estándar de Documentos de Marcaje (V2.0)</h3>
+          <p>A partir de este mes, hemos simplificado la plantilla de solicitud de marcaje. La nueva estructura facilita la lectura para los desarrolladores y reduce errores de implementación.</p>
+          <button class="news-link" onclick="showToast('Descargando Plantilla V2.0...')">Descargar Plantilla V2.0 ⬇️ →</button>
+        </div>
+      </div>
+
+      <div class="news-article">
+        <div class="news-thumb">🔄</div>
+        <div class="news-body">
+          <span class="news-tag tag-new">Actualización</span>
+          <h3>Migración a GA4: Nuevo Esquema de Eventos</h3>
+          <p>Actualizamos el esquema de eventos recomendado para alinear con las mejores prácticas de GA4. Todos los documentos de marcaje nuevos deben usar la nueva nomenclatura estandarizada.</p>
+          <button class="news-link" onclick="showToast('Abriendo documento de esquema...')">Ver esquema actualizado 📊 →</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ────────── VIEW: DICCIONARIO ────────── -->
+  <section id="dictionary" class="view">
+    <div class="page-inner">
+
+      <div class="page-header header-blue">
+        <h2>El Idioma MarTech 🗣️</h2>
+        <p>Conceptos básicos para hablar el mismo idioma técnico.</p>
+      </div>
+
+      <p class="section-sub" style="margin-bottom:28px;">Explora los conceptos fundamentales de nuestra área. Este glosario interactivo está diseñado para alinear a todos los equipos sobre la terminología técnica que utilizamos a diario al hablar de analítica, marcaje y gestión de datos.</p>
+
+      <div id="accordion">
+
+        <div class="accordion-item">
+          <button class="accordion-btn">
+            <span>¿Qué es una Página Virtual vs. Screen Name?</span>
+            <span class="accordion-icon">＋</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <strong>Página Virtual:</strong> Un evento que simula la carga de una nueva página en sitios tipo SPA (Single Page Applications) donde la URL no necesariamente cambia, pero el contenido principal sí.<br><br>
+              <strong>Screen Name:</strong> El equivalente a una página pero en aplicaciones móviles (App). Representa la vista o pantalla actual en la que se encuentra el usuario. Se usa en Firebase/GA4 para apps nativas.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-btn">
+            <span>¿Qué es un Evento Interactivo (Clics, Popups)?</span>
+            <span class="accordion-icon">＋</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              Es cualquier interacción del usuario con un elemento de la interfaz que no implica necesariamente un cambio de página o pantalla. Ejemplos comunes incluyen: hacer clic en un botón, enviar un formulario, abrir un menú desplegable, visualizar un popup o reproducir un video.<br><br>
+              Estos eventos nos ayudan a entender la <strong>fricción y el uso funcional</strong> de la UI, y son fundamentales para calcular tasas de conversión y embudos.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-btn">
+            <span>¿Qué es el DataLayer y cómo funciona?</span>
+            <span class="accordion-icon">＋</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              El <strong>DataLayer</strong> (Capa de Datos) es un objeto JavaScript que almacena de forma estructurada información sobre la página o las interacciones del usuario. Funciona como un <em>"puente"</em> de comunicación seguro entre el sitio web y las herramientas de marketing (como GTM).<br><br>
+              En lugar de raspar el HTML, GTM lee variables limpias directamente desde el DataLayer. Ejemplo básico:<br><br>
+              <code style="background:#E2E8F0; padding:6px 10px; border-radius:6px; display:block; font-size:12px; margin-top:4px;">window.dataLayer = window.dataLayer || [];<br>window.dataLayer.push({ event: 'click_boton', nombre_boton: 'Solicitar' });</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-btn">
+            <span>¿Qué es GTM (Google Tag Manager) y para qué sirve?</span>
+            <span class="accordion-icon">＋</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <strong>Google Tag Manager</strong> es un sistema de gestión de etiquetas que permite actualizar de forma rápida y sencilla fragmentos de código (etiquetas) en un sitio web o app móvil sin tocar el código fuente constantemente.<br><br>
+              Sirve como un contenedor central: nosotros inyectamos un solo código de GTM, y desde su interfaz gestionamos los píxeles de Facebook, eventos de GA4, scripts de VWO, tags de remarketing, etc. Esto da autonomía al equipo de MarTech sin depender de cada deploy de desarrollo.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-btn">
+            <span>¿Qué es GA4 (Google Analytics 4)?</span>
+            <span class="accordion-icon">＋</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              <strong>GA4</strong> es la versión más reciente de Google Analytics. A diferencia de Universal Analytics (UA), GA4 está basado en un modelo de <strong>eventos</strong> en lugar de sesiones, lo que permite una medición más flexible y precisa del comportamiento del usuario tanto en web como en app.<br><br>
+              Ventajas clave: integración nativa con BigQuery, modelos predictivos con ML, medición cross-platform y cumplimiento con normativas de privacidad modernas.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-btn">
+            <span>¿Qué es un Test A/B y cómo se usa VWO?</span>
+            <span class="accordion-icon">＋</span>
+          </button>
+          <div class="accordion-content">
+            <div class="accordion-body">
+              Un <strong>Test A/B</strong> es un experimento controlado donde se muestra a diferentes grupos de usuarios dos versiones de una misma página o elemento (A = control, B = variante) para determinar cuál genera mejor resultado en una métrica objetivo (conversión, clics, tiempo en página).<br><br>
+              <strong>VWO (Visual Website Optimizer)</strong> es la plataforma que usamos para crear, ejecutar y analizar estos experimentos. Permite definir el tráfico de cada variante, la métrica de éxito y calcular significancia estadística automáticamente.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────── VIEW: HERRAMIENTAS ────────── -->
+  <section id="tools" class="view">
+    <div class="page-inner">
+
+      <div class="page-header header-dark">
+        <h2>Herramientas y Tutoriales 🛠️</h2>
+        <p>Aprende a usar nuestras herramientas para validación y análisis.</p>
+      </div>
+
+      <p class="section-sub" style="margin-bottom:28px;">Aprende a utilizar las herramientas clave para el trabajo diario. Esta sección contiene guías prácticas y recursos de aprendizaje para empoderar a los desarrolladores y analistas en la verificación del marcaje, inspección de datos y comprensión técnica de la implementación.</p>
+
+      <div class="grid-3">
+
+        <div class="tool-card">
+          <div class="tool-icon-wrap">🔌</div>
+          <h3>Tag Assistant</h3>
+          <p>Cómo conectarse, revisar el ID correcto y validar las etiquetas que se activan en tiempo real directamente en el navegador.</p>
+          <div class="tool-btns">
+            <button class="btn btn-outline btn-sm" onclick="openVideoModal('tag-assistant')">🎥 Ver Video</button>
+            <button class="btn btn-dark btn-sm" onclick="showToast('Abriendo documento Paso a Paso...')">📄 Paso a Paso</button>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon-wrap">💻</div>
+          <h3>DataLayer por Consola</h3>
+          <p>Aprende a buscar y leer el objeto DataLayer inspeccionando el navegador con las DevTools del desarrollador.</p>
+          <div class="tool-btns">
+            <button class="btn btn-outline btn-sm" onclick="openVideoModal('datalayer')">🎥 Ver Video</button>
+            <button class="btn btn-dark btn-sm" onclick="showToast('Abriendo documento Paso a Paso...')">📄 Paso a Paso</button>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon-wrap">🌐</div>
+          <h3>Tipos de URLs</h3>
+          <p>Dominio normal, iFrame o Widget. Dónde ir a buscar cada una y sus implicancias en la analítica del sitio.</p>
+          <div class="tool-btns">
+            <button class="btn btn-outline btn-sm" onclick="openVideoModal('urls')">🎥 Ver Video</button>
+            <button class="btn btn-dark btn-sm" onclick="showToast('Abriendo documento Paso a Paso...')">📄 Paso a Paso</button>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon-wrap">🔍</div>
+          <h3>Looker Studio</h3>
+          <p>Cómo acceder, filtrar y construir vistas personalizadas en los dashboards oficiales del equipo MarTech.</p>
+          <div class="tool-btns">
+            <button class="btn btn-outline btn-sm" onclick="openVideoModal('looker')">🎥 Ver Video</button>
+            <button class="btn btn-dark btn-sm" onclick="showToast('Abriendo documento Paso a Paso...')">📄 Paso a Paso</button>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon-wrap">🧪</div>
+          <h3>VWO Testing</h3>
+          <p>Cómo configurar un experimento A/B, definir la métrica de éxito y leer los resultados estadísticos correctamente.</p>
+          <div class="tool-btns">
+            <button class="btn btn-outline btn-sm" onclick="openVideoModal('vwo')">🎥 Ver Video</button>
+            <button class="btn btn-dark btn-sm" onclick="showToast('Abriendo documento Paso a Paso...')">📄 Paso a Paso</button>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon-wrap">📊</div>
+          <h3>Exploración en GA4</h3>
+          <p>Aprende a construir reportes de embudo, cohorte y exploración libre para analizar el comportamiento de usuarios.</p>
+          <div class="tool-btns">
+            <button class="btn btn-outline btn-sm" onclick="openVideoModal('ga4')">🎥 Ver Video</button>
+            <button class="btn btn-dark btn-sm" onclick="showToast('Abriendo documento Paso a Paso...')">📄 Paso a Paso</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="cta-banner">
+        <h3>¡Impulsa tu carrera!</h3>
+        <p>Domina el análisis de datos. Haz la certificación oficial de Google Analytics 4 y eleva tus capacidades profesionales.</p>
+        <button class="btn-cta" onclick="showToast('Abriendo Google Skillshop...')">Comenzar Certificación Gratuita 🏆</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ────────── VIEW: REPOSITORIOS ────────── -->
+  <section id="repos" class="view">
+    <div class="page-inner">
+
+      <div class="section-block">
+        <p class="section-title">Repositorios y Accesos 📁</p>
+        <p class="section-sub">Accede rápidamente a los entornos oficiales. Esta vista centraliza todos los enlaces vitales hacia nuestro repositorio histórico de documentación técnica y las plataformas analíticas donde residen nuestros datos.</p>
+      </div>
+
+      <div class="repo-hero">
+        <div class="repo-thumb">🗄️</div>
+        <div class="repo-body">
+          <h3>Repositorio Histórico de Marcajes</h3>
+          <p>Accede a nuestro Drive oficial. Aquí viven, clasificados y ordenados, todos los documentos de marcaje existentes y pasados del banco. Incluye versiones históricas, templates y guías de referencia.</p>
+          <button class="btn btn-primary" onclick="showToast('Abriendo Drive de Repositorio...')">
+            Ir al Drive de Repositorio 📂
+          </button>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <p class="section-title" style="margin-bottom:16px;">Entornos de Datos</p>
+        <div class="grid-3">
+
+          <div class="data-env-card">
+            <div class="env-icon">📈</div>
+            <h4>Acceso a GA4</h4>
+            <p style="font-size:12px; color:var(--mid); text-align:center; line-height:1.5;">Solicita permisos de lectura a la propiedad de GA4 del banco.</p>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Iniciando solicitud de acceso a GA4...')">Solicitar Acceso 🔑</button>
+          </div>
+
+          <div class="data-env-card">
+            <div class="env-icon">🔍</div>
+            <h4>Reportes de Exploración</h4>
+            <p style="font-size:12px; color:var(--mid); text-align:center; line-height:1.5;">Aprende a construir reportes personalizados en GA4.</p>
+            <button class="btn btn-outline btn-sm" onclick="navigate('tools')">Aprender a hacerlos 📊</button>
+          </div>
+
+          <div class="data-env-card">
+            <div class="env-icon">📊</div>
+            <h4>Looker Studio</h4>
+            <p style="font-size:12px; color:var(--mid); text-align:center; line-height:1.5;">Accede a los dashboards oficiales del equipo en Looker Studio.</p>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Abriendo Looker Studio...')">Ver Dashboards 📈</button>
+          </div>
+
+          <div class="data-env-card">
+            <div class="env-icon">🗃️</div>
+            <h4>BigQuery</h4>
+            <p style="font-size:12px; color:var(--mid); text-align:center; line-height:1.5;">Acceso al warehouse de datos exportados desde GA4.</p>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Solicitando acceso BigQuery...')">Solicitar Acceso 🔑</button>
+          </div>
+
+          <div class="data-env-card">
+            <div class="env-icon">🎨</div>
+            <h4>Figma (Diseños)</h4>
+            <p style="font-size:12px; color:var(--mid); text-align:center; line-height:1.5;">Acceso a los diseños oficiales del banco en Figma.</p>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Abriendo Figma...')">Ir a Figma 🎨</button>
+          </div>
+
+          <div class="data-env-card">
+            <div class="env-icon">🎫</div>
+            <h4>Jira (Tickets)</h4>
+            <p style="font-size:12px; color:var(--mid); text-align:center; line-height:1.5;">Board de gestión de solicitudes y QA del equipo.</p>
+            <button class="btn btn-outline btn-sm" onclick="navigate('support')">Ir a Jira 🎫</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ────────── VIEW: SOLICITUDES ────────── -->
+  <section id="support" class="view">
+    <div class="page-inner">
+
+      <div style="text-align:center; margin-bottom:28px;">
+        <p class="section-title">Solicitudes y Mejoras del Sitio 🛎️</p>
+        <p class="section-sub">Gestiona tus requerimientos operativos. Utiliza esta sección para ingresar solicitudes formales al equipo o para proveer feedback que nos ayude a mejorar este hub de conocimiento.</p>
+      </div>
+
+      <div class="jira-card">
+        <h3>Mesa de Ayuda (Jira)</h3>
+        <p>¿Necesitas revisión de marcaje, un proceso de QA o tienes dudas técnicas sobre la implementación de un documento de Tag?</p>
+        <button class="btn-jira" onclick="showToast('Abriendo Jira...')">Generar Ticket en Jira 🎟️</button>
+        <div>
+          <span class="jira-warning">⚠️ Recuerda: Tu solicitud se revisará estrictamente por orden de llegada.</span>
+        </div>
+      </div>
+
+      <div class="feedback-card">
+        <h3>Ayúdanos a Mejorar</h3>
+        <p>Este sitio es para ustedes. ¿Qué le falta? ¿Qué te gustaría que agreguemos o expliquemos mejor?</p>
+
+        <form onsubmit="submitFeedback(event)">
+          <div class="form-group">
+            <label class="form-label">Tu equipo o rol</label>
+            <select class="form-control">
+              <option>UX/UI Design</option>
+              <option>Desarrollo Front-end</option>
+              <option>Producto / Negocio</option>
+              <option>QA / Testing</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tipo de solicitud</label>
+            <select class="form-control">
+              <option>💡 Sugerencia de contenido</option>
+              <option>🐛 Reportar un error</option>
+              <option>📚 Solicitar un tutorial</option>
+              <option>❓ Pregunta técnica</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Déjanos tu comentario</label>
+            <textarea rows="4" class="form-control" placeholder="Me gustaría ver un tutorial sobre..."></textarea>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-dark form-submit">Enviar Comentario ✉️</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════════════════════════════ VIDEO MODAL ═══════════════════════════════ -->
+<div class="modal-overlay video-modal" id="videoModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeVideoModal()">✕</button>
+    <div class="video-wrapper" id="videoWrapper"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ TOAST ═══════════════════════════════ -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── NAVIGATION ───
+const views = document.querySelectorAll('.view');
+const navItems = document.querySelectorAll('.nav-item[data-target]');
+
+function navigate(targetId) {
+  views.forEach(v => v.classList.remove('active'));
+  const target = document.getElementById(targetId);
+  if (target) target.classList.add('active');
+  target.scrollIntoView = undefined;
+  document.querySelector('.main').scrollTo({ top: 0, behavior: 'smooth' });
+
+  navItems.forEach(btn => {
+    btn.classList.remove('active');
+    if (btn.dataset.target === targetId) btn.classList.add('active');
+  });
+
+  // Mobile close
+  document.getElementById('mobileOverlay').classList.remove('open');
+  document.getElementById('mobilePanel').classList.remove('open');
+
+  // Init chart when home is shown
+  if (targetId === 'home' && !chartInit) initChart();
+}
+
+navItems.forEach(btn => {
+  btn.addEventListener('click', () => navigate(btn.dataset.target));
+});
+
+// ─── MOBILE MENU ───
+document.getElementById('hamburgerBtn').addEventListener('click', () => {
+  document.getElementById('mobileOverlay').classList.add('open');
+  document.getElementById('mobilePanel').classList.add('open');
+});
+
+document.getElementById('mobileOverlay').addEventListener('click', () => {
+  document.getElementById('mobileOverlay').classList.remove('open');
+  document.getElementById('mobilePanel').classList.remove('open');
+});
+
+// ─── ACCORDION ───
+document.querySelectorAll('.accordion-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const content = this.nextElementSibling;
+    const icon = this.querySelector('.accordion-icon');
+    const isOpen = content.classList.contains('open');
+
+    // close all
+    document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('open'));
+    document.querySelectorAll('.accordion-icon').forEach(i => { i.textContent = '＋'; i.style.transform = 'rotate(0deg)'; });
+
+    if (!isOpen) {
+      content.classList.add('open');
+      icon.textContent = '✕';
+      icon.style.transform = 'rotate(90deg)';
+    }
+  });
+});
+
+// ─── VIDEO MODAL ───
+const videoSources = {
+  'tag-assistant': 'https://www.youtube.com/embed/kn6FgGDqOdU',
+  'datalayer': 'https://www.youtube.com/embed/kn6FgGDqOdU',
+  'urls': 'https://www.youtube.com/embed/kn6FgGDqOdU',
+  'looker': 'https://www.youtube.com/embed/kn6FgGDqOdU',
+  'vwo': 'https://www.youtube.com/embed/kn6FgGDqOdU',
+  'ga4': 'https://www.youtube.com/embed/kn6FgGDqOdU',
+};
+
+function openVideoModal(key) {
+  const src = videoSources[key] || '';
+  document.getElementById('videoWrapper').innerHTML = `<iframe src="${src}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+  document.getElementById('videoModal').classList.add('open');
+}
+
+function closeVideoModal() {
+  document.getElementById('videoModal').classList.remove('open');
+  document.getElementById('videoWrapper').innerHTML = '';
+}
+
+document.getElementById('videoModal').addEventListener('click', function(e) {
+  if (e.target === this) closeVideoModal();
+});
+
+// ─── TOAST ───
+let toastTimer;
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = '✅ ' + msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// ─── FEEDBACK FORM ───
+function submitFeedback(e) {
+  e.preventDefault();
+  e.target.reset();
+  showToast('¡Gracias por tu feedback! Lo revisaremos pronto.');
+}
+
+// ─── CHART ───
+let chartInit = false;
+function initChart() {
+  chartInit = true;
+  const ctx = document.getElementById('impactChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Cuentas Extra', 'Firmas Generadas', 'Leads Extra'],
+      datasets: [{
+        label: 'Impacto por Optimización',
+        data: [2150, 1850, 6000],
+        backgroundColor: ['rgba(52,211,153,0.85)', 'rgba(96,165,250,0.85)', 'rgba(251,191,36,0.85)'],
+        borderColor: ['#34D399', '#60A5FA', '#FBBF24'],
+        borderWidth: 2,
+        borderRadius: 8,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#0F172A',
+          padding: 14,
+          titleFont: { size: 13, weight: '700', family: 'DM Sans' },
+          bodyFont: { size: 13, family: 'DM Sans' },
+          callbacks: {
+            label: ctx => '  ' + ctx.parsed.y.toLocaleString('es-CL') + ' usuarios'
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(51,65,85,0.4)' },
+          ticks: {
+            color: '#64748B',
+            font: { family: 'DM Sans', size: 12 },
+            callback: v => v >= 1000 ? (v/1000) + 'k' : v
+          },
+          border: { display: false }
+        },
+        x: {
+          grid: { display: false },
+          ticks: { color: '#64748B', font: { family: 'DM Sans', size: 12 } },
+          border: { display: false }
+        }
+      },
+      animation: { duration: 1200, easing: 'easeOutQuart' }
+    }
+  });
+}
+
+// Init chart on load (home is active by default)
+setTimeout(initChart, 400);
+</script>
+</body>
+</html>
