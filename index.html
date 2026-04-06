@@ -373,14 +373,15 @@
     background: linear-gradient(to right, rgba(10, 18, 40, 0.88) 0%, rgba(10, 18, 40, 0.55) 55%, rgba(10,18,40,0.2) 100%);
   }
 
-  /* New split layout: text left, button bottom-right */
+  /* New split layout: text left (with room for arrows), button bottom-right */
   .slide-inner {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: stretch;
     z-index: 2;
-    padding: 36px 44px;
+    /* Horizontal padding accounts for arrow buttons (44px wide + 20px from edge + gap) */
+    padding: 36px 80px;
   }
 
   .slide-text {
@@ -535,7 +536,7 @@
     .slide-inner {
       flex-direction: column;
       justify-content: flex-end;
-      padding: 24px 20px;
+      padding: 24px 20px 48px;
     }
     .slide-text {
       max-width: 100%;
@@ -1286,28 +1287,40 @@
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
-  /* ─── ALTERNATING SECTION BACKGROUNDS ─── */
-  /* Odd sections = white, Even sections = soft blue-gray accent */
-  #home .page-inner,
-  #aprende .page-inner,
-  #tools .page-inner,
-  #dictionary .page-inner {
+  /* ─── ALTERNATING SECTION BACKGROUNDS (intra-page) ─── */
+  /* Each sub-section within a page view gets alternating background */
+  .section-alt-a {
     background: #ffffff;
+    padding: 40px 0;
   }
 
-  #news .page-inner,
-  #repos .page-inner,
-  #support .page-inner {
+  .section-alt-b {
     background: #EFF4FB;
+    padding: 40px 0;
   }
 
-  /* Apply the background to the whole section view */
-  #home, #aprende, #tools, #dictionary {
+  /* Keep page-inner max-width centering inside alternating wrappers */
+  .section-alt-a .page-inner-sub,
+  .section-alt-b .page-inner-sub {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 36px;
+  }
+
+  @media (max-width: 768px) {
+    .section-alt-a .page-inner-sub,
+    .section-alt-b .page-inner-sub {
+      padding: 0 16px;
+    }
+    .section-alt-a,
+    .section-alt-b {
+      padding: 28px 0;
+    }
+  }
+
+  /* Non-alternating page views keep a plain white background */
+  #news, #aprende, #tools, #repos, #dictionary, #support {
     background: #ffffff;
-  }
-
-  #news, #repos, #support {
-    background: #EFF4FB;
   }
 
   /* ─── FADE IN ─── */
@@ -1326,7 +1339,7 @@
 <!-- ═══════════════════════════════ HEADER ═══════════════════════════════ -->
 <header class="top-header">
   <a class="header-logo" href="#" onclick="navigate('home')">
-    <img class="header-logo-img" src="logo/logo.png" alt="Logo Marketing Digital">
+    <img class="header-logo-img" src="logo/logo sin fondo.png" alt="Logo Marketing Digital">
     <div class="header-logo-text">
       <strong>Marketing Digital / Performance</strong>
     </div>
@@ -1367,7 +1380,8 @@
 
   <!-- ────────── VIEW: INICIO ────────── -->
   <section id="home" class="view active">
-    <div class="page-inner">
+    <!-- Carrusel: usa page-inner para centrar + max-width -->
+    <div class="page-inner" style="padding-bottom: 0; padding-top: 32px;">
 
       <div class="carousel-wrap" id="mainCarousel">
         <div class="carousel-track" id="carouselTrack">
@@ -1414,76 +1428,87 @@
         <button class="carousel-btn next" onclick="window.moveSlide(1)">❯</button>
         <div class="carousel-dots" id="carouselDots"></div>
       </div>
+    </div><!-- /page-inner -->
 
-      <div class="section-block">
-        <p class="section-title">Visión General</p>
-        <p class="section-sub">Bienvenido al Hub Central. Esta sección proporciona un resumen de nuestra identidad, nuestro ciclo operativo y el impacto directo que generamos en los resultados del banco mediante la optimización de datos.</p>
+      <!-- ━ Sub-sección 1: Visión General — Fondo Blanco ━ -->
+      <div class="section-alt-a">
+        <div class="page-inner-sub">
+          <p class="section-title">Visión General</p>
+          <p class="section-sub">Bienvenido al Hub Central. Esta sección proporciona un resumen de nuestra identidad, nuestro ciclo operativo y el impacto directo que generamos en los resultados del banco mediante la optimización de datos.</p>
 
-        <div class="grid-2">
-          <div class="card card-indigo">
-            <span class="card-icon">🤝</span>
-            <h3>Área Transversal</h3>
-            <p>Apoyamos a todos los equipos y productos del banco por igual, sin exclusividades. Nuestro objetivo es el crecimiento global de la organización.</p>
-          </div>
-          <div class="card card-amber">
-            <span class="card-icon">⚖️</span>
-            <h3>Regla de Trabajo</h3>
-            <p>Orden de Llegada. Para asegurar calidad y justicia, tomamos las solicitudes en estricto orden de ingreso, no por nivel de supuesta urgencia.</p>
+          <div class="grid-2">
+            <div class="card card-indigo">
+              <span class="card-icon">🤝</span>
+              <h3>Área Transversal</h3>
+              <p>Apoyamos a todos los equipos y productos del banco por igual, sin exclusividades. Nuestro objetivo es el crecimiento global de la organización.</p>
+            </div>
+            <div class="card card-amber">
+              <span class="card-icon">⚖️</span>
+              <h3>Regla de Trabajo</h3>
+              <p>Orden de Llegada. Para asegurar calidad y justicia, tomamos las solicitudes en estricto orden de ingreso, no por nivel de supuesta urgencia.</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="section-block">
-        <p class="section-title" style="text-align:center; margin-bottom:20px;">Nuestro Ciclo de Trabajo</p>
-        <div class="grid-4">
-          <div class="cycle-step">
-            <div class="step-num">1</div>
-            <h4>Marcar</h4>
-            <p>GTM / GA4</p>
-          </div>
-          <div class="cycle-step">
-            <div class="step-num">2</div>
-            <h4>Medir</h4>
-            <p>Google Analytics</p>
-          </div>
-          <div class="cycle-step">
-            <div class="step-num">3</div>
-            <h4>Analizar</h4>
-            <p>Looker / BigQuery</p>
-          </div>
-          <div class="cycle-step">
-            <div class="step-num" style="background:var(--brand-light);color:var(--brand);">4</div>
-            <h4>Optimizar</h4>
-            <p>A/B Test con VWO</p>
+      <!-- ━ Sub-sección 2: Ciclo de Trabajo — Fondo Azul Pálido ━ -->
+      <div class="section-alt-b">
+        <div class="page-inner-sub">
+          <p class="section-title" style="text-align:center; margin-bottom:20px;">Nuestro Ciclo de Trabajo</p>
+          <div class="grid-4">
+            <div class="cycle-step">
+              <div class="step-num">1</div>
+              <h4>Marcar</h4>
+              <p>GTM / GA4</p>
+            </div>
+            <div class="cycle-step">
+              <div class="step-num">2</div>
+              <h4>Medir</h4>
+              <p>Google Analytics</p>
+            </div>
+            <div class="cycle-step">
+              <div class="step-num">3</div>
+              <h4>Analizar</h4>
+              <p>Looker / BigQuery</p>
+            </div>
+            <div class="cycle-step">
+              <div class="step-num" style="background:var(--brand-light);color:var(--brand);">4</div>
+              <h4>Optimizar</h4>
+              <p>A/B Test con VWO</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="impact-section">
-        <h3>El Impacto de Nuestro Trabajo</h3>
-        <p>Resultados de negocio generados a través de estrategias de optimización y marcaje preciso.</p>
+      <!-- ━ Sub-sección 3: Impacto — Fondo Oscuro (ya tiene su propio estilo) ━ -->
+      <div class="section-alt-a">
+        <div class="page-inner-sub">
+          <div class="impact-section">
+            <h3>El Impacto de Nuestro Trabajo</h3>
+            <p>Resultados de negocio generados a través de estrategias de optimización y marcaje preciso.</p>
 
-        <div class="metrics-grid">
-          <div class="metric">
-            <div class="metric-num green">+2.150</div>
-            <p>Cuentas de planes extra</p>
-          </div>
-          <div class="metric">
-            <div class="metric-num blue">+1.850</div>
-            <p>Firmas generadas</p>
-          </div>
-          <div class="metric">
-            <div class="metric-num amber">+6.000</div>
-            <p>Leads extra anuales</p>
-          </div>
-        </div>
+            <div class="metrics-grid">
+              <div class="metric">
+                <div class="metric-num green">+2.150</div>
+                <p>Cuentas de planes extra</p>
+              </div>
+              <div class="metric">
+                <div class="metric-num blue">+1.850</div>
+                <p>Firmas generadas</p>
+              </div>
+              <div class="metric">
+                <div class="metric-num amber">+6.000</div>
+                <p>Leads extra anuales</p>
+              </div>
+            </div>
 
-        <div class="chart-wrap">
-          <canvas id="impactChart"></canvas>
+            <div class="chart-wrap">
+              <canvas id="impactChart"></canvas>
+            </div>
+          </div>
         </div>
       </div>
 
-    </div>
   </section>
 
   <!-- ────────── VIEW: APRENDE ────────── -->
