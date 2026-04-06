@@ -1436,6 +1436,187 @@
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
   }
+
+  /* =====================
+     MARTECH WIDGET
+  ===================== */
+  .martech-wrap {
+    max-width: 580px;
+    width: 100%;
+  }
+
+  .martech-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .martech-tab {
+    flex: 1;
+    padding: 8px 6px;
+    font-size: 11px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid #e0e0e0;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    background: transparent;
+    white-space: nowrap;
+    min-width: 80px;
+  }
+
+  .martech-tab.active {
+    color: #fff;
+    border-color: transparent;
+  }
+
+  .martech-stage {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .martech-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    padding: 24px 20px;
+    gap: 16px;
+    align-items: center;
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    pointer-events: none;
+  }
+
+  .martech-slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .martech-slide.exit {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  .slide-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .slide-category-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 6px;
+  }
+
+  .slide-title {
+    font-size: 21px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+
+  .slide-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.65;
+  }
+
+  .slide-right {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 155px;
+  }
+
+  .tool-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 11px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.10);
+    transition: transform 0.18s ease;
+    cursor: default;
+  }
+
+  .tool-row:hover {
+    transform: translateX(-4px);
+    background: rgba(255,255,255,0.12);
+  }
+
+  .tool-logo {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    padding: 3px;
+  }
+
+  .tool-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .tool-logo-fallback {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .tool-name {
+    font-size: 12px;
+    color: rgba(255,255,255,0.85);
+    white-space: nowrap;
+  }
+
+  .martech-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .martech-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background: #ccc;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: none;
+    padding: 0;
+  }
+
+  .martech-dot.active {
+    width: 18px;
+  }
 </style>
 </head>
 <body>
@@ -1638,80 +1819,14 @@
           <div class="grid-2" style="align-items: center; gap: 40px;">
             <!-- Izquierda: Imagen S4 -->
             <div class="team-image-container">
-              <img src="imagenes/imagenS4.png" alt="Disciplinas del equipo" class="hover-image-s4">
+              <img src="imagenes/imagenS4.PNG" alt="Disciplinas del equipo" class="hover-image-s4">
             </div>
 
-            <!-- Derecha: Grid Interactivo de Herramientas -->
-            <div class="tools-interactive-wrapper" style="display:flex; justify-content:center;">
-              <div class="tools-grid">
-                
-                <!-- Card 1: Medición -->
-                <div class="tool-card" onclick="toggleToolDetail('detail1')">
-                  <div class="card-header">
-                    <div class="card-dot" style="background:#F59E0B;"></div>
-                    <span class="card-title">Medición/Feedback</span>
-                  </div>
-                  <div class="tools-list">
-                    <span class="badge">Google Analytics</span>
-                    <span class="badge">Medallia</span>
-                    <span class="badge">Firebase</span>
-                  </div>
-                </div>
-                
-                <!-- Card 2: Reportería -->
-                <div class="tool-card" onclick="toggleToolDetail('detail2')">
-                  <div class="card-header">
-                    <div class="card-dot" style="background:#3B82F6;"></div>
-                    <span class="card-title">Reportería</span>
-                  </div>
-                  <div class="tools-list">
-                    <span class="badge">Looker Studio</span>
-                    <span class="badge">Google Sheets</span>
-                  </div>
-                </div>
-
-                <!-- Detail Panel Row 1 -->
-                <div id="detail1" class="detail-panel">
-                  <p style="font-size: 13px; color: #6b7280; padding-top: 10px; margin-bottom: 10px;">Herramientas encargadas de la captura de datos y voz del cliente en los activos digitales.</p>
-                </div>
-                <div id="detail2" class="detail-panel">
-                  <p style="font-size: 13px; color: #6b7280; padding-top: 10px; margin-bottom: 10px;">Plataformas para la visualización, monitoreo automatizado de datos y reportes ejecutivos.</p>
-                </div>
-
-                <!-- Card 3: Extracción -->
-                <div class="tool-card" onclick="toggleToolDetail('detail3')">
-                  <div class="card-header">
-                    <div class="card-dot" style="background:#10B981;"></div>
-                    <span class="card-title">Extracción</span>
-                  </div>
-                  <div class="tools-list">
-                    <span class="badge">Tealium</span>
-                    <span class="badge">BigQuery</span>
-                  </div>
-                </div>
-
-                <!-- Card 4: Experimentación -->
-                <div class="tool-card" onclick="toggleToolDetail('detail4')">
-                  <div class="card-header">
-                    <div class="card-dot" style="background:#8B5CF6;"></div>
-                    <span class="card-title">Experimentación</span>
-                  </div>
-                  <div class="tools-list">
-                    <span class="badge">VWO</span>
-                    <span class="badge">Firebase A/B</span>
-                    <span class="badge">Interaction Studio</span>
-                  </div>
-                </div>
-
-                <!-- Detail Panel Row 2 -->
-                <div id="detail3" class="detail-panel">
-                  <p style="font-size: 13px; color: #6b7280; padding-top: 10px; margin-bottom: 10px;">Gestión de etiquetas avanzadas y consultas de bases de datos para obtener insights profundos.</p>
-                </div>
-                <div id="detail4" class="detail-panel">
-                  <p style="font-size: 13px; color: #6b7280; padding-top: 10px; margin-bottom: 10px;">Plataformas de Testing A/B, personalización de contenido y análisis de UX interactivo.</p>
-                </div>
-
-              </div>
+            <!-- Derecha: Grid Interactivo de Herramientas (Martech Widget) -->
+            <div class="martech-wrap">
+              <div class="martech-tabs" id="martechTabs"></div>
+              <div class="martech-stage" id="martechStage"></div>
+              <div class="martech-dots" id="martechDots"></div>
             </div>
           </div>
         </div>
@@ -2327,23 +2442,221 @@ function resetAutoPlay() {
 }
 
 setTimeout(initCarousel, 100);
-function toggleToolDetail(detailId) {
-  const panels = document.querySelectorAll('.detail-panel');
-  const clickedPanel = document.getElementById(detailId);
-  const cards = document.querySelectorAll('.tool-card');
-  const clickedCard = Array.from(cards).find(c => c.getAttribute('onclick') && c.getAttribute('onclick').includes(detailId));
 
-  if (clickedPanel.classList.contains('open')) {
-    clickedPanel.classList.remove('open');
-    if(clickedCard) clickedCard.classList.remove('active');
-    return;
+  /**
+   * =====================================================
+   * MARTECH TOOLS SHOWCASE WIDGET
+   * =====================================================
+   */
+  const CATEGORIES = [
+    {
+      key: "medicion",
+      label: "Medición",
+      accentColor: "#1D9E75",
+      bgColor: "#0a2e22",
+      title: "Medición\ny Feedback",
+      desc: "Captura el comportamiento real del usuario — sesiones, clics, embudos y heatmaps para identificar fricciones.",
+      tools: [
+        {
+          name: "Google Analytics",
+          abbr: "GA",
+          fallbackBg: "#E1F5EE",
+          fallbackColor: "#0F6E56",
+          logo: "https://www.gstatic.com/analytics-suite/header/suite/v2/ic_analytics.svg"
+        },
+        {
+          name: "Mixpanel",
+          abbr: "M",
+          fallbackBg: "#FAEEDA",
+          fallbackColor: "#854F0B",
+          logo: "https://cdn.worldvectorlogo.com/logos/mixpanel.svg"
+        },
+        {
+          name: "Hotjar",
+          abbr: "HJ",
+          fallbackBg: "#FAECE7",
+          fallbackColor: "#993C1D",
+          logo: "https://cdn.worldvectorlogo.com/logos/hotjar.svg"
+        }
+      ]
+    },
+    {
+      key: "reporteria",
+      label: "Reportería",
+      accentColor: "#185FA5",
+      bgColor: "#071e36",
+      title: "Reportería\nautomática",
+      desc: "Dashboards en tiempo real que conectan múltiples fuentes de datos sin intervención manual.",
+      tools: [
+        {
+          name: "Looker Studio",
+          abbr: "LS",
+          fallbackBg: "#E6F1FB",
+          fallbackColor: "#0C447C",
+          logo: "https://www.gstatic.com/images/branding/product/2x/data_studio_48dp.png"
+        },
+        {
+          name: "Google Sheets",
+          abbr: "GS",
+          fallbackBg: "#EAF3DE",
+          fallbackColor: "#3B6D11",
+          logo: "https://www.gstatic.com/images/branding/product/2x/sheets_48dp.png"
+        }
+      ]
+    },
+    {
+      key: "extraccion",
+      label: "Extracción",
+      accentColor: "#D85A30",
+      bgColor: "#2e1108",
+      title: "Extracción\nde datos",
+      desc: "Recopila y unifica datos desde múltiples touchpoints para nutrir el pipeline analítico.",
+      tools: [
+        {
+          name: "Tealium",
+          abbr: "T",
+          fallbackBg: "#FAECE7",
+          fallbackColor: "#993C1D",
+          logo: "https://cdn.worldvectorlogo.com/logos/tealium.svg"
+        },
+        {
+          name: "Search Console",
+          abbr: "SC",
+          fallbackBg: "#E6F1FB",
+          fallbackColor: "#185FA5",
+          logo: "https://www.gstatic.com/images/branding/product/2x/search_console_48dp.png"
+        }
+      ]
+    },
+    {
+      key: "experimentacion",
+      label: "Experimentación",
+      accentColor: "#7F77DD",
+      bgColor: "#16143a",
+      title: "Experimentación\nA/B",
+      desc: "Valida hipótesis con tests estadísticos antes de implementar cambios en producción.",
+      tools: [
+        {
+          name: "VWO",
+          abbr: "VWO",
+          fallbackBg: "#EEEDFE",
+          fallbackColor: "#534AB7",
+          logo: "https://cdn.worldvectorlogo.com/logos/vwo.svg"
+        },
+        {
+          name: "Firebase A/B",
+          abbr: "FB",
+          fallbackBg: "#FAEEDA",
+          fallbackColor: "#854F0B",
+          logo: "https://www.gstatic.com/devrel-devsite/prod/v6b0a3cf24a9b5b38e8085c9cb2cde61dc6e8c3f98a3fea2b6234de6b1e7d8ef6/firebase/images/touchicon-180.png"
+        },
+        {
+          name: "Optimizely",
+          abbr: "OPT",
+          fallbackBg: "#E1F5EE",
+          fallbackColor: "#0F6E56",
+          logo: "https://cdn.worldvectorlogo.com/logos/optimizely.svg"
+        }
+      ]
+    }
+  ];
+
+  /* ---- BUILD DOM ---- */
+  let currentMartech = 0;
+  let autoTimer = null;
+
+  const tabsEl  = document.getElementById('martechTabs');
+  const stageEl = document.getElementById('martechStage');
+  const dotsEl  = document.getElementById('martechDots');
+
+  if (tabsEl && stageEl && dotsEl) {
+    CATEGORIES.forEach((cat, i) => {
+
+      /* TAB */
+      const tab = document.createElement('button');
+      tab.className = 'martech-tab' + (i === 0 ? ' active' : '');
+      tab.textContent = cat.label;
+      if (i === 0) tab.style.cssText = `background:${cat.accentColor};border-color:${cat.accentColor}`;
+      tab.addEventListener('click', () => goTo(i));
+      tabsEl.appendChild(tab);
+
+      /* SLIDE */
+      const slide = document.createElement('div');
+      slide.className = 'martech-slide' + (i === 0 ? ' active' : '');
+      slide.style.background = cat.bgColor;
+
+      const toolsHTML = cat.tools.map(tool => `
+        <div class="tool-row">
+          <div class="tool-logo">
+            <img
+              src="${tool.logo}"
+              alt="${tool.name}"
+              onerror="this.parentNode.outerHTML='<div class=\\'tool-logo-fallback\\' style=\\'background:${tool.fallbackBg};color:${tool.fallbackColor}\\'>${tool.abbr}</div>'"
+            />
+          </div>
+          <span class="tool-name">${tool.name}</span>
+        </div>
+      `).join('');
+
+      const titleLines = cat.title.split('\n');
+      slide.innerHTML = `
+        <div class="slide-left">
+          <div class="slide-category-label" style="color:${cat.accentColor}">${cat.label}</div>
+          <div class="slide-title">${titleLines[0]}<br>${titleLines[1] || ''}</div>
+          <div class="slide-desc">${cat.desc}</div>
+        </div>
+        <div class="slide-right">${toolsHTML}</div>
+      `;
+      stageEl.appendChild(slide);
+
+      /* DOT */
+      const dot = document.createElement('button');
+      dot.className = 'martech-dot' + (i === 0 ? ' active' : '');
+      if (i === 0) dot.style.background = cat.accentColor;
+      dot.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(dot);
+    });
+
+    /* ---- NAVIGATION ---- */
+    function goTo(next) {
+      if (next === currentMartech) return;
+
+      const slides = document.querySelectorAll('.martech-slide');
+      const tabs   = document.querySelectorAll('.martech-tab');
+      const dots   = document.querySelectorAll('.martech-dot');
+
+      slides[currentMartech].classList.remove('active');
+      slides[currentMartech].classList.add('exit');
+      setTimeout(() => slides[currentMartech].classList.remove('exit'), 380);
+
+      tabs[currentMartech].classList.remove('active');
+      tabs[currentMartech].style.cssText = '';
+
+      dots[currentMartech].classList.remove('active');
+      dots[currentMartech].style.cssText = '';
+
+      currentMartech = next;
+
+      slides[currentMartech].classList.add('active');
+      tabs[currentMartech].classList.add('active');
+      tabs[currentMartech].style.cssText = `background:${CATEGORIES[currentMartech].accentColor};border-color:${CATEGORIES[currentMartech].accentColor}`;
+      dots[currentMartech].classList.add('active');
+      dots[currentMartech].style.cssText = `background:${CATEGORIES[currentMartech].accentColor}`;
+    }
+
+    /* ---- AUTO ROTATE ---- */
+    function startAuto() {
+      autoTimer = setInterval(() => goTo((currentMartech + 1) % CATEGORIES.length), 3500);
+    }
+
+    // Pause on hover, resume on leave
+    stageEl.addEventListener('mouseenter', () => clearInterval(autoTimer));
+    stageEl.addEventListener('mouseleave', startAuto);
+    tabsEl.addEventListener('mouseenter',  () => clearInterval(autoTimer));
+    tabsEl.addEventListener('mouseleave',  startAuto);
+
+    startAuto();
   }
-
-  panels.forEach(p => p.classList.remove('open'));
-  cards.forEach(c => c.classList.remove('active'));
-  clickedPanel.classList.add('open');
-  if(clickedCard) clickedCard.classList.add('active');
-}
 </script>
 </body>
 </html>
