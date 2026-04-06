@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MarTech & C.R.O. Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
   :root {
@@ -31,7 +31,7 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     background: var(--bg);
     color: var(--dark);
     display: flex;
@@ -60,22 +60,17 @@
     text-decoration: none;
   }
 
-  .header-logo-icon {
-    width: 42px;
-    height: 42px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 12px;
+  .header-logo-img {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
   }
 
   .header-logo-text strong {
     display: block;
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
     color: #fff;
     letter-spacing: -0.3px;
     line-height: 1.2;
@@ -85,21 +80,21 @@
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    color: rgba(255,255,255,0.8);
-    font-weight: 600;
+    color: rgba(255,255,255,0.75);
+    font-weight: 500;
   }
 
   .header-nav {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 24px;
   }
 
   .header-nav .nav-item {
     background: none;
     border: none;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
     font-weight: 600;
     color: rgba(255,255,255,0.8);
     cursor: pointer;
@@ -109,6 +104,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    white-space: nowrap;
   }
 
   .header-nav .nav-item:hover, .header-nav .nav-item.active {
@@ -149,26 +145,29 @@
     align-items: center;
   }
 
-  .btn-jira-header {
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: #fff;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    padding: 10px 20px;
-    border-radius: 8px;
+  .btn-crear-solicitud {
+    background: #fff;
+    border: none;
+    color: #4A6B8A;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 9px 20px;
+    border-radius: 50px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
     transition: all 0.2s;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    white-space: nowrap;
+    text-decoration: none;
   }
 
-  .btn-jira-header:hover {
-    background: rgba(0, 0, 0, 0.3);
-    border-color: rgba(255, 255, 255, 0.5);
+  .btn-crear-solicitud:hover {
+    background: #EBF2FF;
     transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
   }
 
   /* MOBILE MENU NAVBAR SPACING */
@@ -345,16 +344,9 @@
     overflow: hidden;
     box-shadow: var(--shadow-lg);
     background: var(--dark-2);
-    aspect-ratio: 21 / 9; /* Professional wide aspect */
+    aspect-ratio: 21 / 9;
     cursor: default;
-    border: 2px solid transparent;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  }
-
-  .carousel-wrap:hover {
-    border-color: #8c8eff;
-    box-shadow: 0 12px 40px rgba(140, 142, 255, 0.25);
-    transform: translateY(-2px);
   }
 
   .carousel-track {
@@ -370,95 +362,105 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end;
   }
 
   .carousel-slide::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.5) 50%, transparent 100%);
+    background: linear-gradient(to right, rgba(10, 18, 40, 0.88) 0%, rgba(10, 18, 40, 0.55) 55%, rgba(10,18,40,0.2) 100%);
   }
 
-  .slide-content {
+  /* New split layout: text left, button bottom-right */
+  .slide-inner {
     position: absolute;
-    top: 50%;
-    left: 8%;
-    transform: translateY(-50%);
-    max-width: 550px;
+    inset: 0;
+    display: flex;
+    align-items: stretch;
     z-index: 2;
+    padding: 36px 44px;
   }
 
-  .slide-content h2 {
+  .slide-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 60%;
+  }
+
+  .slide-text h2 {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(26px, 4vw, 42px);
+    font-size: clamp(22px, 3.2vw, 36px);
     font-weight: 800;
     color: #fff;
-    line-height: 1.15;
-    margin-bottom: 16px;
+    line-height: 1.18;
+    margin-bottom: 14px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
   }
 
-  /* Tooltip logic */
-  .slide-desc-container {
-    position: relative;
-    display: inline-block;
+  .slide-text p {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(13px, 1.4vw, 15px);
+    color: rgba(255,255,255,0.85);
+    line-height: 1.65;
+    max-width: 400px;
   }
 
-  .slide-desc-title {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: #60A5FA;
+  .slide-action {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-bottom: 4px;
+  }
+
+  .btn-slide {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 12px;
-    background: rgba(96, 165, 250, 0.1);
-    border: 1px solid rgba(96, 165, 250, 0.2);
-    border-radius: 8px;
-    cursor: help;
-    transition: background 0.2s;
-  }
-
-  .slide-desc-title:hover {
-    background: rgba(96, 165, 250, 0.2);
-  }
-
-  .slide-desc-popup {
-    position: absolute;
-    bottom: calc(100% + 14px);
-    left: 0;
-    background: rgba(15, 23, 42, 0.90);
-    backdrop-filter: blur(10px);
-    color: #f8fafc;
-    padding: 20px 24px;
-    border-radius: 14px;
-    width: 380px;
+    padding: 13px 28px;
+    border-radius: 50px;
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
-    line-height: 1.65;
-    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(14px) scale(0.98);
-    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-    z-index: 10;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    pointer-events: none; /* Allows closing simply by mouseleave */
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.22s;
+    text-decoration: none;
+    white-space: nowrap;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.25);
   }
 
-  .slide-desc-popup::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 24px;
-    border-width: 8px;
-    border-style: solid;
-    border-color: rgba(15, 23, 42, 0.90) transparent transparent transparent;
+  .btn-slide-blue {
+    background: var(--brand);
+    color: #fff;
+  }
+  .btn-slide-blue:hover {
+    background: var(--brand-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(26,86,219,0.45);
   }
 
-  .slide-desc-container:hover .slide-desc-popup {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0) scale(1);
+  .btn-slide-green {
+    background: var(--accent-green);
+    color: #fff;
+  }
+  .btn-slide-green:hover {
+    background: #087a54;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(14,159,110,0.45);
+  }
+
+  .btn-slide-amber {
+    background: var(--accent-amber);
+    color: #fff;
+  }
+  .btn-slide-amber:hover {
+    background: #b45309;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(217,119,6,0.45);
   }
 
   /* Carousel Navigation Buttons */
@@ -466,26 +468,24 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 48px;
-    height: 48px;
-    background: rgba(255,255,255,0.9);
+    width: 44px;
+    height: 44px;
+    background: rgba(255,255,255,0.85);
     border: none;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 18px;
     color: var(--dark);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
     transition: all 0.2s ease;
     z-index: 5;
-    opacity: 0.8;
+    opacity: 0.7;
   }
 
-  .carousel-wrap:hover .carousel-btn {
-    opacity: 1;
-  }
+  .carousel-wrap:hover .carousel-btn { opacity: 1; }
 
   .carousel-btn:hover {
     background: var(--brand);
@@ -493,8 +493,36 @@
     transform: translateY(-50%) scale(1.08);
   }
 
-  .carousel-btn.prev { left: 24px; }
-  .carousel-btn.next { right: 24px; }
+  .carousel-btn.prev { left: 20px; }
+  .carousel-btn.next { right: 20px; }
+
+  /* Carousel dots */
+  .carousel-dots {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+  }
+
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+    background: rgba(255,255,255,0.45);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s;
+    padding: 0;
+  }
+
+  .carousel-dot.active {
+    background: #fff;
+    width: 24px;
+    border-radius: 4px;
+  }
 
   @media (max-width: 768px) {
     .carousel-wrap {
@@ -502,29 +530,20 @@
       height: 420px;
     }
     .carousel-slide::before {
-      background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.6) 60%, transparent 100%);
+      background: linear-gradient(to top, rgba(10, 18, 40, 0.95) 0%, rgba(10, 18, 40, 0.6) 60%, transparent 100%);
     }
-    .slide-content {
-      top: auto;
-      bottom: 40px;
-      left: 20px;
-      right: 20px;
-      transform: none;
+    .slide-inner {
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px 20px;
+    }
+    .slide-text {
+      max-width: 100%;
       text-align: center;
     }
-    .slide-desc-popup {
-      left: 50%;
-      bottom: calc(100% + 16px);
-      transform: translateX(-50%) translateY(10px);
-      width: 90vw;
-      max-width: 340px;
-    }
-    .slide-desc-container:hover .slide-desc-popup {
-      transform: translateX(-50%) translateY(0);
-    }
-    .slide-desc-popup::after {
-      left: 50%;
-      transform: translateX(-50%);
+    .slide-action {
+      justify-content: center;
+      padding-top: 16px;
     }
     .carousel-btn { display: none; }
   }
@@ -542,7 +561,7 @@
     cursor: pointer;
     transition: all 0.18s;
     text-decoration: none;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
   }
 
   .btn-primary {
@@ -1267,6 +1286,30 @@
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
+  /* ─── ALTERNATING SECTION BACKGROUNDS ─── */
+  /* Odd sections = white, Even sections = soft blue-gray accent */
+  #home .page-inner,
+  #aprende .page-inner,
+  #tools .page-inner,
+  #dictionary .page-inner {
+    background: #ffffff;
+  }
+
+  #news .page-inner,
+  #repos .page-inner,
+  #support .page-inner {
+    background: #EFF4FB;
+  }
+
+  /* Apply the background to the whole section view */
+  #home, #aprende, #tools, #dictionary {
+    background: #ffffff;
+  }
+
+  #news, #repos, #support {
+    background: #EFF4FB;
+  }
+
   /* ─── FADE IN ─── */
   .view.active {
     animation: fadeUp 0.3s ease;
@@ -1283,27 +1326,23 @@
 <!-- ═══════════════════════════════ HEADER ═══════════════════════════════ -->
 <header class="top-header">
   <a class="header-logo" href="#" onclick="navigate('home')">
-    <div class="header-logo-icon">🚀</div>
+    <img class="header-logo-img" src="logo/logo.png" alt="Logo Marketing Digital">
     <div class="header-logo-text">
-      <strong>MarTech</strong>
-      <span>Hub Central</span>
+      <strong>Marketing Digital / Performance</strong>
     </div>
   </a>
 
   <nav class="header-nav">
     <button class="nav-item active" data-target="home">Inicio</button>
-    <button class="nav-item" data-target="news">Noticias <span class="nav-badge">Nueva</span></button>
-    <button class="nav-item" data-target="dictionary">Diccionario</button>
+    <button class="nav-item" data-target="aprende">Aprende</button>
     <button class="nav-item" data-target="tools">Herramientas</button>
-    <button class="nav-item" data-target="repos">Repositorios</button>
-    <button class="nav-item" data-target="support">Solicitudes</button>
+    <button class="nav-item" data-target="repos">Documentación</button>
+    <button class="nav-item" data-target="news">Novedades <span class="nav-badge">Nueva</span></button>
+    <button class="nav-item" data-target="dictionary">Preguntas frecuentes</button>
+    <button class="btn-crear-solicitud" onclick="navigate('support')">🎟️ Crear Solicitud</button>
   </nav>
 
-  <div class="header-actions">
-    <button class="btn-jira-header" onclick="navigate('support')">
-      <span>🎟️</span> Crear solicitud en Jira
-    </button>
-  </div>
+  <div class="header-actions"></div>
 </header>
 
 <!-- ═══════════════════════════════ MOBILE HEADER ═══════════════════════════════ -->
@@ -1334,43 +1373,37 @@
         <div class="carousel-track" id="carouselTrack">
           
           <div class="carousel-slide" style="background-image: url('carrusel/slide1.png');">
-            <div class="slide-content">
-              <h2>Actualización de Medición</h2>
-              <div class="slide-desc-container">
-                <div class="slide-desc-title">
-                  ℹ️ Nuevos cambios en marcaje
-                </div>
-                <div class="slide-desc-popup">
-                  Se actualizó la estructura de eventos en el flujo de onboarding. Todos los documentos de marcaje nuevos deben usar la nomenclatura V2.0. Revisa los cambios antes de solicitar QA.
-                </div>
+            <div class="slide-inner">
+              <div class="slide-text">
+                <h2>Aprende a usar informes en GA4</h2>
+                <p>Descubre cómo encontrar métricas clave y aprovechar mejor los datos para tomar decisiones.</p>
+              </div>
+              <div class="slide-action">
+                <button class="btn-slide btn-slide-blue" onclick="navigate('aprende')">Explorar recursos →</button>
               </div>
             </div>
           </div>
 
           <div class="carousel-slide" style="background-image: url('carrusel/slide2.png');">
-            <div class="slide-content">
-              <h2>Exploración de Datos</h2>
-              <div class="slide-desc-container">
-                <div class="slide-desc-title">
-                  ℹ️ Cómo ir a ver un dato a GA4
-                </div>
-                <div class="slide-desc-popup">
-                  Accede a GA4 → panel izquierdo → Exploración. Selecciona "Forma libre", arrastra la dimensión y métrica que necesitas. Filtra por fecha y segmento para encontrar el dato exacto.
-                </div>
+            <div class="slide-inner">
+              <div class="slide-text">
+                <h2>¿Necesitas apoyo del equipo Martech?</h2>
+                <p>Crea tu solicitud fácilmente y recibe apoyo en documentación de marcas, medición, etiquetado y seguimiento de eventos.</p>
+              </div>
+              <div class="slide-action">
+                <button class="btn-slide btn-slide-green" onclick="navigate('support')">Crear solicitud →</button>
               </div>
             </div>
           </div>
 
           <div class="carousel-slide" style="background-image: url('carrusel/slide3.png');">
-            <div class="slide-content">
-              <h2>Auditoría de Eventos</h2>
-              <div class="slide-desc-container">
-                <div class="slide-desc-title">
-                  ℹ️ Revisar eventos
-                </div>
-                <div class="slide-desc-popup">
-                  Abre DevTools (F12) → pestaña Network → filtra por "collect". Cada fila es un evento disparado al dataLayer. Revisa el nombre del evento y sus parámetros para validar la implementación.
-                </div>
+            <div class="slide-inner">
+              <div class="slide-text">
+                <h2>Nueva documentación disponible</h2>
+                <p>Revisa las últimas actualizaciones y documentos de marcas para mantenerte al día con procesos y definiciones clave.</p>
+              </div>
+              <div class="slide-action">
+                <button class="btn-slide btn-slide-amber" onclick="navigate('news')">Ver novedades →</button>
               </div>
             </div>
           </div>
@@ -1379,6 +1412,7 @@
         
         <button class="carousel-btn prev" onclick="window.moveSlide(-1)">❮</button>
         <button class="carousel-btn next" onclick="window.moveSlide(1)">❯</button>
+        <div class="carousel-dots" id="carouselDots"></div>
       </div>
 
       <div class="section-block">
@@ -1449,6 +1483,29 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ────────── VIEW: APRENDE ────────── -->
+  <section id="aprende" class="view">
+    <div class="page-inner">
+      <div class="page-header header-blue">
+        <h2>Centro de Aprendizaje 📚</h2>
+        <p>Recursos y guías para dominar las herramientas de analítica y medición digital.</p>
+      </div>
+      <p class="section-sub" style="margin-bottom:28px;">Accede a guías prácticas, tutoriales y documentación para empoderar a tu equipo en el uso de GA4, GTM y más herramientas del ecosistema MarTech.</p>
+      <div class="grid-2">
+        <div class="card card-indigo">
+          <span class="card-icon">📊</span>
+          <h3>Informes en GA4</h3>
+          <p>Aprende a navegar el panel de GA4 y encontrar las métricas clave para tu negocio.</p>
+        </div>
+        <div class="card card-amber">
+          <span class="card-icon">🏷️</span>
+          <h3>Etiquetado y Eventos</h3>
+          <p>Domina la estructura de eventos y el dataLayer para una medición precisa.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1988,9 +2045,26 @@ function initCarousel() {
   slidesCount = track.children.length;
   if (slidesCount <= 1) return;
   
+  // Build dots
+  const dotsContainer = document.getElementById('carouselDots');
+  if (dotsContainer) {
+    for (let i = 0; i < slidesCount; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+      dot.addEventListener('click', () => { currentSlide = i; updateCarousel(); updateDots(); resetAutoPlay(); });
+      dotsContainer.appendChild(dot);
+    }
+  }
+
   carouselWrap.addEventListener('mouseenter', stopAutoPlay);
   carouselWrap.addEventListener('mouseleave', startAutoPlay);
   startAutoPlay();
+}
+
+function updateDots() {
+  const dots = document.querySelectorAll('.carousel-dot');
+  dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
 }
 
 function updateCarousel() {
@@ -2001,6 +2075,7 @@ window.moveSlide = function(direction, userAction = true) {
   if (slidesCount <= 1) return;
   currentSlide = (currentSlide + direction + slidesCount) % slidesCount;
   updateCarousel();
+  updateDots();
   if (userAction) resetAutoPlay();
 }
 
