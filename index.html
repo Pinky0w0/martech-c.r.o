@@ -2189,29 +2189,8 @@
       <div class="section-alt-a" style="padding-bottom: 60px;">
         <div class="page-inner-sub">
 
-          <!-- Card 1 -->
-          <div class="news-article">
-            <div class="news-thumb" style="background:#F8FAFC; font-size: 32px; color: #10B981;">📄</div>
-            <div class="news-body">
-              <span class="news-tag tag-new">Pyme</span>
-              <h3>Tagging - Pyme publico - Formulario - Origen necesidad - 2026</h3>
-              <p>nuevo flujo homologado de pyme web para sitio publico en la originacion de la cuenta</p>
-              <a href="https://docs.google.com/document/d/1OHgKknSZueHoTL0hfujo97dyFM8BnsDmbTSUubPhSIk/edit?tab=t.0"
-                target="_blank" class="news-link">ir a ver el documento de marca →</a>
-            </div>
-          </div>
+          <div id="docsCards"></div>
 
-          <!-- Card 2 -->
-          <div class="news-article">
-            <div class="news-thumb" style="background:#F8FAFC; font-size: 32px; color: #3B82F6;">📄</div>
-            <div class="news-body">
-              <span class="news-tag tag-blue">Persona</span>
-              <h3>Doc Tagging Sitio Privado - Persona - Pago TC- 2026</h3>
-              <p>se agregaron pantallas y nuevas variables al flujo de persona web de sitio privado</p>
-              <a href="https://docs.google.com/document/d/127UwYnNq6eZAo3sEKAPutHjy0VcqvzPJ8sXAWoDcr6A/edit?tab=t.0"
-                target="_blank" class="news-link">ir a ver el documento de marca →</a>
-            </div>
-          </div>
 
           <!-- Card 3 / Enlace final -->
           <div style="text-align: center; margin-top: 24px;">
@@ -3171,6 +3150,71 @@
     });
   }
 </script>
+<script>
+  const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT4Yesl1aZk18Qh-x3zE1f2VaVJBqyCU6BUD4h5Tj_A5Al11p3f8oJYCjfaimFbf83ohkcUvLE8h5T-/pub?gid=0&single=true&output=csv';
+
+  function tagClass(tag) {
+    const t = (tag || '').toLowerCase().trim();
+    if (t === 'pyme') return 'tag-new';
+    if (t === 'persona') return 'tag-blue';
+    return 'tag-blue';
+  }
+
+  function tagColor(tag) {
+    return (tag || '').toLowerCase().trim() === 'pyme' ? '#10B981' : '#3B82F6';
+  }
+
+  function parsearCSV(texto) {
+    const lineas = texto.trim().split('\n');
+    const headers = lineas[0].split(',').map(h => h.trim().replace(/^"|"$/g, '').toLowerCase());
+    return lineas.slice(1).map(linea => {
+      const cols = [];
+      let actual = '', enComilla = false;
+      for (const c of linea) {
+        if (c === '"') { enComilla = !enComilla; continue; }
+        if (c === ',' && !enComilla) { cols.push(actual.trim()); actual = ''; continue; }
+        actual += c;
+      }
+      cols.push(actual.trim());
+      const obj = {};
+      headers.forEach((h, i) => { obj[h] = (cols[i] || '').replace(/^"|"$/g, ''); });
+      return obj;
+    });
+  }
+
+  async function cargarDocs() {
+    const contenedor = document.getElementById('docsCards');
+    if (!contenedor) return;
+    try {
+      const res = await fetch(CSV_URL);
+      if (!res.ok) throw new Error();
+      const texto = await res.text();
+      if (texto.includes('<!DOCTYPE')) throw new Error();
+      const filas = parsearCSV(texto).filter(r => r.titulo && r.titulo.trim() !== '');
+      contenedor.innerHTML = filas.map(row => `
+        <div class="news-article">
+          <div class="news-thumb" style="background:#F8FAFC; font-size: 32px; color: ${tagColor(row.tag)};">📄</div>
+          <div class="news-body">
+            <span class="news-tag ${tagClass(row.tag)}">${row.tag}</span>
+            <h3>${row.titulo}</h3>
+            <p>${row.descripcion}</p>
+            <a href="${row.link_url}" target="_blank" class="news-link">${row.link_texto}</a>
+          </div>
+        </div>
+      `).join('');
+    } catch {
+      contenedor.innerHTML = `
+        <div class="news-article">
+          <div class="news-body">
+            <p style="color:#94A3B8; font-size:13px;">No se pudo cargar la documentación. Verifica que la planilla esté publicada.</p>
+          </div>
+        </div>`;
+    }
+  }
+
+  cargarDocs();
+</script>
 </body>
+
 
 </html>
