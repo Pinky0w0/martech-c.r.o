@@ -2204,14 +2204,20 @@
       <!-- ━ Sub-sección 4: Equipo y Herramientas (Fondo Azul) ━ -->
       <div class="section-alt-b">
         <div class="page-inner-sub">
-          <p class="section-title text-center" style="font-family: 'Inter', sans-serif; margin-bottom: 40px; text-align: center;">El equipo está compuesto
+          <p class="section-title text-center"
+            style="font-family: 'Inter', sans-serif; margin-bottom: 40px; text-align: center;">El equipo está compuesto
             por dos disciplinas y sus principales tareas son:</p>
 
           <div class="grid-2" style="align-items: center; gap: 40px;">
             <!-- Izquierda: Imagen S4 -->
-            <div class="team-image-container" style="position: relative; cursor: pointer;" onclick="openImageModal('imagenes/imagenS4.PNG')">
-              <img src="imagenes/imagenS4.PNG" alt="Disciplinas del equipo" class="hover-image-s4" style="display: block;">
-              <div style="position: absolute; bottom: 16px; right: 16px; background: rgba(0,0,0,0.6); color: white; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: background 0.3s, transform 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.8)'; this.style.transform='scale(1.1)';" onmouseout="this.style.background='rgba(0,0,0,0.6)'; this.style.transform='scale(1)';">
+            <div class="team-image-container" style="position: relative; cursor: pointer;"
+              onclick="openImageModal('imagenes/imagenS4.PNG')">
+              <img src="imagenes/imagenS4.PNG" alt="Disciplinas del equipo" class="hover-image-s4"
+                style="display: block;">
+              <div
+                style="position: absolute; bottom: 16px; right: 16px; background: rgba(0,0,0,0.6); color: white; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: background 0.3s, transform 0.2s;"
+                onmouseover="this.style.background='rgba(0,0,0,0.8)'; this.style.transform='scale(1.1)';"
+                onmouseout="this.style.background='rgba(0,0,0,0.6)'; this.style.transform='scale(1)';">
                 🔍
               </div>
             </div>
@@ -3114,84 +3120,87 @@
       startAuto();
     }
   </script>
-<!-- ────────── IMAGE MODAL ────────── -->
-<div class="modal-overlay" id="imageModal">
-  <div class="modal-box" style="max-width: 900px; padding: 10px; text-align: center; background: transparent; box-shadow: none;">
-    <button class="modal-close" style="top: -10px; right: -10px; background: #fff; color: #333; z-index: 10;">&times;</button>
-    <img id="expandedImg" src="" alt="Expanded Image" style="width: 100%; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+  <!-- ────────── IMAGE MODAL ────────── -->
+  <div class="modal-overlay" id="imageModal">
+    <div class="modal-box"
+      style="max-width: 900px; padding: 10px; text-align: center; background: transparent; box-shadow: none;">
+      <button class="modal-close"
+        style="top: -10px; right: -10px; background: #fff; color: #333; z-index: 10;">&times;</button>
+      <img id="expandedImg" src="" alt="Expanded Image"
+        style="width: 100%; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+    </div>
   </div>
-</div>
 
-<script>
-  const imageModal = document.getElementById('imageModal');
-  const expandedImg = document.getElementById('expandedImg');
+  <script>
+    const imageModal = document.getElementById('imageModal');
+    const expandedImg = document.getElementById('expandedImg');
 
-  window.openImageModal = function(src) {
-    if (imageModal && expandedImg) {
-      expandedImg.src = src;
-      imageModal.classList.add('open');
-    }
-  };
+    window.openImageModal = function (src) {
+      if (imageModal && expandedImg) {
+        expandedImg.src = src;
+        imageModal.classList.add('open');
+      }
+    };
 
-  window.closeImageModal = function() {
+    window.closeImageModal = function () {
+      if (imageModal) {
+        imageModal.classList.remove('open');
+      }
+    };
+
+    const closeImgBtn = document.querySelector('#imageModal .modal-close');
+    if (closeImgBtn) closeImgBtn.addEventListener('click', closeImageModal);
+
     if (imageModal) {
-      imageModal.classList.remove('open');
+      imageModal.addEventListener('click', function (e) {
+        if (e.target === imageModal) {
+          closeImageModal();
+        }
+      });
     }
-  };
+  </script>
+  <script>
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQoYm8wuSH4z3XRsH-LJEwnuzMq_agSkrJEzwhq9NdwXsoM_fqErNsgEQrt5wqJnwlyGIPL5lXJDM14/pub?gid=0&single=true&output=csv';
 
-  const closeImgBtn = document.querySelector('#imageModal .modal-close');
-  if (closeImgBtn) closeImgBtn.addEventListener('click', closeImageModal);
+    function tagClass(tag) {
+      const t = (tag || '').toLowerCase().trim();
+      if (t === 'pyme') return 'tag-new';
+      if (t === 'persona') return 'tag-blue';
+      return 'tag-blue';
+    }
 
-  if (imageModal) {
-    imageModal.addEventListener('click', function(e) {
-      if (e.target === imageModal) {
-        closeImageModal();
-      }
-    });
-  }
-</script>
-<script>
-  const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT4Yesl1aZk18Qh-x3zE1f2VaVJBqyCU6BUD4h5Tj_A5Al11p3f8oJYCjfaimFbf83ohkcUvLE8h5T-/pub?gid=0&single=true&output=csv';
+    function tagColor(tag) {
+      return (tag || '').toLowerCase().trim() === 'pyme' ? '#10B981' : '#3B82F6';
+    }
 
-  function tagClass(tag) {
-    const t = (tag || '').toLowerCase().trim();
-    if (t === 'pyme') return 'tag-new';
-    if (t === 'persona') return 'tag-blue';
-    return 'tag-blue';
-  }
+    function parsearCSV(texto) {
+      const lineas = texto.trim().split('\n');
+      const headers = lineas[0].split(',').map(h => h.trim().replace(/^"|"$/g, '').toLowerCase());
+      return lineas.slice(1).map(linea => {
+        const cols = [];
+        let actual = '', enComilla = false;
+        for (const c of linea) {
+          if (c === '"') { enComilla = !enComilla; continue; }
+          if (c === ',' && !enComilla) { cols.push(actual.trim()); actual = ''; continue; }
+          actual += c;
+        }
+        cols.push(actual.trim());
+        const obj = {};
+        headers.forEach((h, i) => { obj[h] = (cols[i] || '').replace(/^"|"$/g, ''); });
+        return obj;
+      });
+    }
 
-  function tagColor(tag) {
-    return (tag || '').toLowerCase().trim() === 'pyme' ? '#10B981' : '#3B82F6';
-  }
-
-  function parsearCSV(texto) {
-    const lineas = texto.trim().split('\n');
-    const headers = lineas[0].split(',').map(h => h.trim().replace(/^"|"$/g, '').toLowerCase());
-    return lineas.slice(1).map(linea => {
-      const cols = [];
-      let actual = '', enComilla = false;
-      for (const c of linea) {
-        if (c === '"') { enComilla = !enComilla; continue; }
-        if (c === ',' && !enComilla) { cols.push(actual.trim()); actual = ''; continue; }
-        actual += c;
-      }
-      cols.push(actual.trim());
-      const obj = {};
-      headers.forEach((h, i) => { obj[h] = (cols[i] || '').replace(/^"|"$/g, ''); });
-      return obj;
-    });
-  }
-
-  async function cargarDocs() {
-    const contenedor = document.getElementById('docsCards');
-    if (!contenedor) return;
-    try {
-      const res = await fetch(CSV_URL);
-      if (!res.ok) throw new Error();
-      const texto = await res.text();
-      if (texto.includes('<!DOCTYPE')) throw new Error();
-      const filas = parsearCSV(texto).filter(r => r.titulo && r.titulo.trim() !== '');
-      contenedor.innerHTML = filas.map(row => `
+    async function cargarDocs() {
+      const contenedor = document.getElementById('docsCards');
+      if (!contenedor) return;
+      try {
+        const res = await fetch(CSV_URL);
+        if (!res.ok) throw new Error();
+        const texto = await res.text();
+        if (texto.includes('<!DOCTYPE')) throw new Error();
+        const filas = parsearCSV(texto).filter(r => r.titulo && r.titulo.trim() !== '');
+        contenedor.innerHTML = filas.map(row => `
         <div class="news-article">
           <div class="news-thumb" style="background:#F8FAFC; font-size: 32px; color: ${tagColor(row.tag)};">📄</div>
           <div class="news-body">
@@ -3202,18 +3211,18 @@
           </div>
         </div>
       `).join('');
-    } catch {
-      contenedor.innerHTML = `
+      } catch {
+        contenedor.innerHTML = `
         <div class="news-article">
           <div class="news-body">
             <p style="color:#94A3B8; font-size:13px;">No se pudo cargar la documentación. Verifica que la planilla esté publicada.</p>
           </div>
         </div>`;
+      }
     }
-  }
 
-  cargarDocs();
-</script>
+    cargarDocs();
+  </script>
 </body>
 
 
