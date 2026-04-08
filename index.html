@@ -2917,112 +2917,82 @@
      */
     const CATEGORIES = [
       {
-        key: "medicion",
-        label: "Medición",
-        accentColor: "#1D9E75",
-        bgColor: "#0a2e22",
+        key: "medicion", label: "Medición", accentColor: "#1D9E75", bgColor: "#0a2e22",
         title: "Medición\ny Feedback",
         desc: "Captura el comportamiento real del usuario — sesiones, clics, embudos y heatmaps para identificar fricciones.",
         tools: [
           {
             name: "Google Analytics",
-            abbr: "GA",
-            fallbackBg: "#E1F5EE",
-            fallbackColor: "#0F6E56",
-            logo: "https://www.gstatic.com/analytics-suite/header/suite/v2/ic_analytics.svg"
-          },
-          {
-            name: "Mixpanel",
-            abbr: "M",
-            fallbackBg: "#FAEEDA",
-            fallbackColor: "#854F0B",
-            logo: "https://cdn.worldvectorlogo.com/logos/mixpanel.svg"
+            logo: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='8' fill='%23F9AB00'/><rect x='10' y='34' width='12' height='20' rx='3' fill='%23fff'/><rect x='26' y='22' width='12' height='32' rx='3' fill='%23fff' opacity='.85'/><rect x='42' y='10' width='12' height='44' rx='3' fill='%23fff' opacity='.7'/></svg>`
           },
           {
             name: "Hotjar",
-            abbr: "HJ",
-            fallbackBg: "#FAECE7",
-            fallbackColor: "#993C1D",
-            logo: "https://cdn.worldvectorlogo.com/logos/hotjar.svg"
+            logo: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='8' fill='%23FF3C00'/><path d='M32 10 C20 10 14 20 14 28 C14 38 22 44 28 48 C28 52 26 56 22 58 C28 58 36 54 38 48 C44 44 50 38 50 28 C50 20 44 10 32 10Z' fill='white'/></svg>`
+          },
+          {
+            name: "Search Console",
+            logo: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='8' fill='%234285F4'/><circle cx='27' cy='27' r='11' fill='none' stroke='white' stroke-width='4'/><line x1='34' y1='34' x2='50' y2='50' stroke='white' stroke-width='5' stroke-linecap='round'/></svg>`
+          },
+          {
+            name: "Firebase",
+            logo: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='8' fill='%23FFA000'/><path d='M14 50 L24 18 L32 32 L36 14 L50 50Z' fill='white' opacity='.9'/><path d='M14 50 L32 32 L50 50Z' fill='white' opacity='.45'/></svg>`
           }
         ]
       },
       {
-        key: "reporteria",
-        label: "Reportería",
-        accentColor: "#185FA5",
-        bgColor: "#071e36",
+        key: "reporteria", label: "Reportería", accentColor: "#185FA5", bgColor: "#071e36",
         title: "Reportería\nautomática",
         desc: "Dashboards en tiempo real que conectan múltiples fuentes de datos sin intervención manual.",
         tools: [
           {
             name: "Looker Studio",
-            abbr: "LS",
-            fallbackBg: "#E6F1FB",
-            fallbackColor: "#0C447C",
-            logo: "https://www.gstatic.com/images/branding/product/2x/data_studio_48dp.png"
+            logo: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='8' fill='%234285F4'/><circle cx='24' cy='34' r='11' fill='%23EA4335'/><circle cx='40' cy='34' r='11' fill='%23FBBC04' opacity='.9'/><circle cx='32' cy='22' r='10' fill='%2334A853' opacity='.85'/></svg>`
+          },
+          {
+            name: "Power BI",
+            logo: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='8' fill='%23F2C811'/><rect x='12' y='38' width='8' height='16' rx='2' fill='%23333'/><rect x='24' y='28' width='8' height='26' rx='2' fill='%23333' opacity='.8'/><rect x='36' y='18' width='8' height='36' rx='2' fill='%23333' opacity='.65'/><rect x='48' y='10' width='8' height='44' rx='2' fill='%23333' opacity='.5'/></svg>`
           },
           {
             name: "Google Sheets",
-            abbr: "GS",
-            fallbackBg: "#EAF3DE",
-            fallbackColor: "#3B6D11",
-            logo: "https://www.gstatic.com/images/branding/product/2x/sheets_48dp.png"
+            logo: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='8' fill='%2323A566'/><rect x='14' y='14' width='36' height='36' rx='3' fill='white' opacity='.95'/><line x1='14' y1='26' x2='50' y2='26' stroke='%2323A566' stroke-width='2.5'/><line x1='14' y1='36' x2='50' y2='36' stroke='%2323A566' stroke-width='2.5'/><line x1='28' y1='14' x2='28' y2='50' stroke='%2323A566' stroke-width='2.5'/></svg>`
           }
         ]
       },
       {
-        key: "extraccion",
-        label: "Extracción",
-        accentColor: "#D85A30",
-        bgColor: "#2e1108",
+        key: "extraccion", label: "Extracción", accentColor: "#D85A30", bgColor: "#2e1108",
         title: "Extracción\nde datos",
         desc: "Recopila y unifica datos desde múltiples touchpoints para nutrir el pipeline analítico.",
         tools: [
           {
-            name: "Tealium",
-            abbr: "T",
-            fallbackBg: "#FAECE7",
-            fallbackColor: "#993C1D",
-            logo: "https://cdn.worldvectorlogo.com/logos/tealium.svg"
+            name: "BigQuery",
+            logo: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='8' fill='%234285F4'/><path d='M32 12 L50 22 L50 42 L32 52 L14 42 L14 22 Z' fill='none' stroke='white' stroke-width='3'/><circle cx='32' cy='32' r='8' fill='white'/><circle cx='32' cy='32' r='4' fill='%234285F4'/></svg>`
           },
           {
-            name: "Search Console",
-            abbr: "SC",
-            fallbackBg: "#E6F1FB",
-            fallbackColor: "#185FA5",
-            logo: "https://www.gstatic.com/images/branding/product/2x/search_console_48dp.png"
+            name: "Tealium",
+            logo: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='8' fill='%23CC0000'/><text x='32' y='46' font-family='Arial Black,sans-serif' font-size='38' font-weight='900' fill='white' text-anchor='middle'>t</text></svg>`
+          },
+          {
+            name: "Databricks",
+            logo: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='8' fill='%23FF3621'/><polygon points='32,10 52,22 52,30 32,42 12,30 12,22' fill='white' opacity='.95'/><polygon points='32,26 52,38 32,50 12,38' fill='white' opacity='.6'/></svg>`
           }
         ]
       },
       {
-        key: "experimentacion",
-        label: "Experimentación",
-        accentColor: "#7F77DD",
-        bgColor: "#16143a",
+        key: "experimentacion", label: "Experimentación", accentColor: "#7F77DD", bgColor: "#16143a",
         title: "Experimentación\nA/B",
         desc: "Valida hipótesis con tests estadísticos antes de implementar cambios en producción.",
         tools: [
           {
             name: "VWO",
-            abbr: "VWO",
-            fallbackBg: "#EEEDFE",
-            fallbackColor: "#534AB7",
-            logo: "https://cdn.worldvectorlogo.com/logos/vwo.svg"
+            logo: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='8' fill='%236C63FF'/><text x='32' y='42' font-family='Arial Black,sans-serif' font-size='17' font-weight='900' fill='white' text-anchor='middle'>VWO</text></svg>`
           },
           {
             name: "Firebase A/B",
-            abbr: "FB",
-            fallbackBg: "#FAEEDA",
-            fallbackColor: "#854F0B",
-            logo: "https://www.gstatic.com/devrel-devsite/prod/v6b0a3cf24a9b5b38e8085c9cb2cde61dc6e8c3f98a3fea2b6234de6b1e7d8ef6/firebase/images/touchicon-180.png"
+            logo: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='8' fill='%23FFA000'/><path d='M14 50 L24 18 L32 32 L36 14 L50 50Z' fill='white' opacity='.9'/><path d='M14 50 L32 32 L50 50Z' fill='white' opacity='.45'/></svg>`
           },
           {
-            name: "Optimizely",
-            abbr: "OPT",
-            fallbackBg: "#E1F5EE",
-            fallbackColor: "#0F6E56",
-            logo: "https://cdn.worldvectorlogo.com/logos/optimizely.svg"
+            name: "Salesforce",
+            logo: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='8' fill='%2300A1E0'/><path d='M26 20 C26 16 30 13 34 13 C37 13 40 15 41 18 C42 17 44 16 46 17 C50 18 52 23 50 27 C52 28 54 31 53 34 C52 38 48 40 44 39 L20 39 C16 39 13 36 13 32 C13 28 16 25 20 25 C19 23 19 21 20 20 C22 17 26 17 26 20Z' fill='white'/></svg>`
           }
         ]
       }
@@ -3058,7 +3028,6 @@
             <img
               src="${tool.logo}"
               alt="${tool.name}"
-              onerror="this.parentNode.outerHTML='<div class=\\'tool-logo-fallback\\' style=\\'background:${tool.fallbackBg};color:${tool.fallbackColor}\\'>${tool.abbr}</div>'"
             />
           </div>
           <span class="tool-name">${tool.name}</span>
