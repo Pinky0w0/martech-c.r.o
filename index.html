@@ -2029,56 +2029,64 @@
     ───────────────────────────────────────────── */
     #aprende.view.active {
       display: flex;
-      flex-direction: column;
       height: 100%;
       overflow: hidden;
     }
 
-    /* Tab bar */
-    .aprende-tabs-bar {
-      display: flex;
-      gap: 0;
-      padding: 0 40px;
-      border-bottom: 1px solid var(--border);
-      background: var(--white);
-      flex-shrink: 0;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-    }
-
-    .aprende-tab {
-      padding: 14px 28px;
-      border: none;
-      background: transparent;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--mid);
-      cursor: pointer;
-      position: relative;
-      border-bottom: 3px solid transparent;
-      transition: color 0.2s, border-color 0.2s, background 0.2s;
-      white-space: nowrap;
-      letter-spacing: 0.1px;
-    }
-
-    .aprende-tab:hover {
-      color: var(--brand);
-      background: var(--brand-light);
-    }
-
-    .aprende-tab.active {
-      color: var(--brand);
-      font-weight: 700;
-      border-bottom: 3px solid var(--brand);
-      background: var(--bg);
-    }
-
-    /* Body: two columns */
+    /* Body: two columns (is the direct child of section) */
     .aprende-body {
       display: flex;
       flex: 1;
       min-height: 0;
       overflow: hidden;
+    }
+
+    /* Right column wrapper: tabs + scrollable content */
+    .aprende-right-col {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      max-width: 740px;
+    }
+
+    /* Tab bar — sits inside .aprende-right-col */
+    .aprende-tabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 24px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    /* Tab style: pill/block (like reference image 2) */
+    .aprende-tab {
+      padding: 8px 20px;
+      border: none;
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--mid);
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.18s, color 0.18s;
+      white-space: nowrap;
+      letter-spacing: 0.1px;
+    }
+
+    .aprende-tab:hover {
+      background: var(--bg);
+      color: var(--dark);
+    }
+
+    .aprende-tab.active {
+      background: var(--brand);
+      color: #fff;
+      font-weight: 700;
     }
 
     /* Left panel */
@@ -2454,14 +2462,6 @@
     <!-- ────────── VIEW: APRENDE ────────── -->
     <section id="aprende" class="view">
 
-      <!-- ── Tabs superiores ── -->
-      <div class="aprende-tabs-bar" id="aprendeTabs">
-        <button class="aprende-tab active" data-aprende-tab="0">Tab Placeholder 1</button>
-        <button class="aprende-tab" data-aprende-tab="1">Tab Placeholder 2</button>
-        <button class="aprende-tab" data-aprende-tab="2">Tab Placeholder 3</button>
-        <button class="aprende-tab" data-aprende-tab="3">Tab Placeholder 4</button>
-      </div>
-
       <!-- ── Layout dos columnas ── -->
       <div class="aprende-body">
 
@@ -2471,10 +2471,23 @@
           <div id="aprendeNav"></div>
         </div>
 
-        <!-- Panel derecho con scroll independiente -->
-        <div class="aprende-right" id="aprendeRight">
-          <div id="aprendeContent"></div>
-          <button class="aprende-scroll-top" id="aprendeScrollTop" title="Volver arriba">↑</button>
+        <!-- Columna derecha: tabs + panel scrolleable -->
+        <div class="aprende-right-col">
+
+          <!-- Tabs superiores (alineados con el panel derecho) -->
+          <div class="aprende-tabs-bar" id="aprendeTabs">
+            <button class="aprende-tab active" data-aprende-tab="0">Tab Placeholder 1</button>
+            <button class="aprende-tab" data-aprende-tab="1">Tab Placeholder 2</button>
+            <button class="aprende-tab" data-aprende-tab="2">Tab Placeholder 3</button>
+            <button class="aprende-tab" data-aprende-tab="3">Tab Placeholder 4</button>
+          </div>
+
+          <!-- Panel derecho con scroll independiente -->
+          <div class="aprende-right" id="aprendeRight">
+            <div id="aprendeContent"></div>
+            <button class="aprende-scroll-top" id="aprendeScrollTop" title="Volver arriba">↑</button>
+          </div>
+
         </div>
 
       </div>
