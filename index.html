@@ -2023,6 +2023,218 @@
     .martech-dot.active {
       width: 18px;
     }
+
+    /* ─────────────────────────────────────────────
+       VIEW: APRENDE — Two-column layout
+    ───────────────────────────────────────────── */
+    #aprende.view.active {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* Tab bar */
+    .aprende-tabs-bar {
+      display: flex;
+      gap: 0;
+      padding: 0 40px;
+      border-bottom: 1px solid var(--border);
+      background: var(--white);
+      flex-shrink: 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+
+    .aprende-tab {
+      padding: 14px 28px;
+      border: none;
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--mid);
+      cursor: pointer;
+      position: relative;
+      border-bottom: 3px solid transparent;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      white-space: nowrap;
+      letter-spacing: 0.1px;
+    }
+
+    .aprende-tab:hover {
+      color: var(--brand);
+      background: var(--brand-light);
+    }
+
+    .aprende-tab.active {
+      color: var(--brand);
+      font-weight: 700;
+      border-bottom: 3px solid var(--brand);
+      background: var(--bg);
+    }
+
+    /* Body: two columns */
+    .aprende-body {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    /* Left panel */
+    .aprende-left {
+      width: 260px;
+      flex-shrink: 0;
+      padding: 28px 16px;
+      border-right: 1px solid var(--border);
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .aprende-left-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: var(--light);
+      padding: 0 12px;
+      margin-bottom: 10px;
+    }
+
+    .aprende-nav-item {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 11px 14px;
+      border: none;
+      background: transparent;
+      border-radius: 10px;
+      border-left: 3px solid transparent;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--mid);
+      cursor: pointer;
+      transition: all 0.18s;
+      line-height: 1.4;
+    }
+
+    .aprende-nav-item:hover {
+      background: var(--bg);
+      color: var(--dark);
+    }
+
+    .aprende-nav-item.active {
+      background: var(--brand-light);
+      color: var(--brand);
+      font-weight: 700;
+      border-left: 3px solid var(--brand);
+    }
+
+    /* Right panel */
+    .aprende-right {
+      flex: 1;
+      overflow-y: auto;
+      padding: 40px 52px 60px;
+      background: var(--bg);
+      position: relative;
+      scroll-behavior: smooth;
+    }
+
+    .aprende-right::-webkit-scrollbar {
+      width: 6px;
+    }
+    .aprende-right::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .aprende-right::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+    .aprende-right::-webkit-scrollbar-thumb:hover {
+      background: var(--light);
+    }
+
+    .aprende-desc {
+      margin-bottom: 56px;
+      scroll-margin-top: 20px;
+    }
+
+    .aprende-desc:last-child {
+      margin-bottom: 100px;
+    }
+
+    .aprende-desc-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .aprende-desc-num {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--brand-light);
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .aprende-desc h3 {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0;
+    }
+
+    .aprende-desc p {
+      font-size: 14px;
+      line-height: 1.85;
+      color: var(--mid);
+      max-width: 720px;
+    }
+
+    /* Scroll-to-top button */
+    .aprende-scroll-top {
+      position: sticky;
+      bottom: 28px;
+      float: right;
+      width: 42px;
+      height: 42px;
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(26,86,219,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s, background 0.2s;
+      z-index: 10;
+    }
+
+    .aprende-scroll-top.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .aprende-scroll-top:hover {
+      background: var(--brand-dark);
+      transform: translateY(-3px);
+    }
   </style>
 </head>
 
@@ -2241,25 +2453,30 @@
 
     <!-- ────────── VIEW: APRENDE ────────── -->
     <section id="aprende" class="view">
-      <div class="page-inner">
-        <div class="page-header header-blue">
-          <h2>Centro de Aprendizaje 📚</h2>
-          <p>Recursos y guías para dominar las herramientas de analítica y medición digital.</p>
+
+      <!-- ── Tabs superiores ── -->
+      <div class="aprende-tabs-bar" id="aprendeTabs">
+        <button class="aprende-tab active" data-aprende-tab="0">Tab Placeholder 1</button>
+        <button class="aprende-tab" data-aprende-tab="1">Tab Placeholder 2</button>
+        <button class="aprende-tab" data-aprende-tab="2">Tab Placeholder 3</button>
+        <button class="aprende-tab" data-aprende-tab="3">Tab Placeholder 4</button>
+      </div>
+
+      <!-- ── Layout dos columnas ── -->
+      <div class="aprende-body">
+
+        <!-- Panel izquierdo fijo -->
+        <div class="aprende-left">
+          <div class="aprende-left-label" id="aprendeLeftLabel">Contenido</div>
+          <div id="aprendeNav"></div>
         </div>
-        <p class="section-sub" style="margin-bottom:28px;">Accede a guías prácticas, tutoriales y documentación para
-          empoderar a tu equipo en el uso de GA4, GTM y más herramientas del ecosistema MarTech.</p>
-        <div class="grid-2">
-          <div class="card card-indigo">
-            <span class="card-icon">📊</span>
-            <h3>Informes en GA4</h3>
-            <p>Aprende a navegar el panel de GA4 y encontrar las métricas clave para tu negocio.</p>
-          </div>
-          <div class="card card-amber">
-            <span class="card-icon">🏷️</span>
-            <h3>Etiquetado y Eventos</h3>
-            <p>Domina la estructura de eventos y el dataLayer para una medición precisa.</p>
-          </div>
+
+        <!-- Panel derecho con scroll independiente -->
+        <div class="aprende-right" id="aprendeRight">
+          <div id="aprendeContent"></div>
+          <button class="aprende-scroll-top" id="aprendeScrollTop" title="Volver arriba">↑</button>
         </div>
+
       </div>
     </section>
 
@@ -3093,6 +3310,180 @@
 
       startAuto();
     }
+
+
+    // ══════════════════════════════════════════════════
+    //  APRENDE PAGE — Tabs + Nav + Scroll independiente
+    // ══════════════════════════════════════════════════
+    const APRENDE_DATA = [
+      {
+        tab: 'Tab Placeholder 1',
+        label: 'Sección 1',
+        titles: [
+          {
+            id: 'aprende-0-0',
+            title: 'Título Placeholder 1.1',
+            desc: 'Este es el contenido de descripción del primer título dentro del Tab 1. Las descripciones pueden ser tan largas como sea necesario. El panel derecho tiene scroll independiente, por lo que todo el contenido cabe sin problema. Aquí irá información detallada sobre este tema específico cuando se entregue el contenido real. Por ahora este texto sirve para verificar que el layout funciona correctamente, que el scroll interno opera de forma independiente al scroll general de la web, y que la navegación entre títulos funciona con el scroll suave esperado. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+          },
+          {
+            id: 'aprende-0-1',
+            title: 'Título Placeholder 1.2',
+            desc: 'Descripción del segundo título del Tab 1. Este bloque contiene información complementaria que se despliega en el panel derecho de forma continua. Al pinchar este título en el panel izquierdo, el panel derecho hace scroll suave hasta esta posición específica. El título activo en el panel izquierdo se destaca visualmente con el color de marca y una línea lateral azul. Las descripciones pueden contener texto extenso y el scroll opera de manera completamente autónoma del resto de la página. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.'
+          },
+          {
+            id: 'aprende-0-2',
+            title: 'Título Placeholder 1.3',
+            desc: 'Descripción del tercer título del Tab 1. El scroll del panel derecho es completamente independiente del scroll global de la web. Cuando el usuario hace scroll hacia abajo en el panel derecho, aparece el botón flotante de scroll-to-top que permite volver al inicio del panel con un click. Al cambiar de tab, el scroll del panel derecho vuelve automáticamente al inicio y el primer título del nuevo tab queda activo y destacado. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.'
+          },
+          {
+            id: 'aprende-0-3',
+            title: 'Título Placeholder 1.4',
+            desc: 'Descripción del cuarto título del Tab 1. Este es el último elemento de navegación de este tab. Cuando llegues a esta descripción, el botón de scroll hacia arriba estará visible para que puedas volver al inicio rápidamente. El contenido real de cada descripción será entregado en una segunda etapa. La estructura visual y funcional está completamente operativa. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.'
+          }
+        ]
+      },
+      {
+        tab: 'Tab Placeholder 2',
+        label: 'Sección 2',
+        titles: [
+          {
+            id: 'aprende-1-0',
+            title: 'Título Placeholder 2.1',
+            desc: 'Descripción del primer título del Tab 2. Cada tab tiene su propio conjunto de títulos y descripciones. Al cambiar de tab, el panel izquierdo actualiza su lista de títulos y el panel derecho muestra las descripciones correspondientes al nuevo tab activo. El scroll vuelve al inicio automáticamente. Placeholder text para verificar el funcionamiento correcto de la interfaz. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.'
+          },
+          {
+            id: 'aprende-1-1',
+            title: 'Título Placeholder 2.2',
+            desc: 'Descripción del segundo título del Tab 2. El panel izquierdo permanece fijo en pantalla mientras el panel derecho scrollea de forma independiente. La vinculación entre los títulos del panel izquierdo y las descripciones del panel derecho se realiza mediante scroll suave hasta el elemento con el ID correspondiente. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.'
+          },
+          {
+            id: 'aprende-1-2',
+            title: 'Título Placeholder 2.3',
+            desc: 'Descripción del tercer título del Tab 2. Las descripciones de este tab son igualmente largas y detalladas. El diseño permite manejar textos extensos sin ningún problema gracias al scroll independiente del panel derecho. Aenean sit amet diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.'
+          }
+        ]
+      },
+      {
+        tab: 'Tab Placeholder 3',
+        label: 'Sección 3',
+        titles: [
+          {
+            id: 'aprende-2-0',
+            title: 'Título Placeholder 3.1',
+            desc: 'Descripción del primer título del Tab 3. Este tab tiene tres títulos en el panel izquierdo. El botón de scroll hacia arriba aparece automáticamente cuando el usuario baja en el panel derecho y desaparece cuando está en la parte superior. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.'
+          },
+          {
+            id: 'aprende-2-1',
+            title: 'Título Placeholder 3.2',
+            desc: 'Descripción del segundo título del Tab 3. El diseño es completamente para desktop y no tiene comportamiento específico para mobile. El layout de dos columnas aprovecha al máximo el espacio disponible en pantallas de computador y notebook. Nullam varius, turpis molestie dictum ultrices, eros sem placerat purus, a molestie neque est eget turpis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.'
+          },
+          {
+            id: 'aprende-2-2',
+            title: 'Título Placeholder 3.3',
+            desc: 'Descripción del tercer título del Tab 3. La estructura visual está lista para recibir el contenido real en la segunda etapa. El panel izquierdo muestra exactamente los títulos del tab activo, sin más ni menos. El panel derecho contiene todas las descripciones apiladas una debajo de otra con scroll continuo. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra.'
+          }
+        ]
+      },
+      {
+        tab: 'Tab Placeholder 4',
+        label: 'Sección 4',
+        titles: [
+          {
+            id: 'aprende-3-0',
+            title: 'Título Placeholder 4.1',
+            desc: 'Descripción del primer título del Tab 4. Este es el último tab del panel superior. Al activarlo, el panel izquierdo muestra sus tres títulos correspondientes y el panel derecho carga las descripciones relacionadas con scroll desde el inicio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.'
+          },
+          {
+            id: 'aprende-3-1',
+            title: 'Título Placeholder 4.2',
+            desc: 'Descripción del segundo título del Tab 4. El primer título de cada tab siempre inicia activo y destacado en el panel izquierdo al cambiar de tab. El scroll del panel derecho vuelve automáticamente al inicio. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error.'
+          },
+          {
+            id: 'aprende-3-2',
+            title: 'Título Placeholder 4.3',
+            desc: 'Descripción del tercer título del Tab 4. Esta es la última descripción de toda la página Aprende en su versión placeholder. La estructura está completa y lista para recibir el contenido definitivo. El botón flotante de scroll hacia arriba permite navegar rápidamente al inicio del panel derecho. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum.'
+          }
+        ]
+      }
+    ];
+
+    let aprendeCurrentTab = 0;
+
+    function renderAprendeTab(tabIndex) {
+      const tab = APRENDE_DATA[tabIndex];
+      const navEl = document.getElementById('aprendeNav');
+      const contentEl = document.getElementById('aprendeContent');
+      const rightEl = document.getElementById('aprendeRight');
+      const labelEl = document.getElementById('aprendeLeftLabel');
+
+      if (!navEl || !contentEl || !rightEl) return;
+
+      // Reset scroll to top
+      rightEl.scrollTop = 0;
+
+      // Update label
+      if (labelEl) labelEl.textContent = tab.label;
+
+      // Build nav items
+      navEl.innerHTML = tab.titles.map((t, i) => `
+        <button
+          class="aprende-nav-item ${i === 0 ? 'active' : ''}"
+          data-aprende-target="${t.id}"
+          onclick="aprendeScrollTo('${t.id}', this)"
+        >${t.title}</button>
+      `).join('');
+
+      // Build descriptions
+      contentEl.innerHTML = tab.titles.map((t, i) => `
+        <div class="aprende-desc" id="${t.id}">
+          <div class="aprende-desc-header">
+            <div class="aprende-desc-num">${i + 1}</div>
+            <h3>${t.title}</h3>
+          </div>
+          <p>${t.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    function aprendeScrollTo(id, clickedBtn) {
+      // Highlight active nav item
+      document.querySelectorAll('.aprende-nav-item').forEach(b => b.classList.remove('active'));
+      if (clickedBtn) clickedBtn.classList.add('active');
+
+      // Scroll right panel to target
+      const target = document.getElementById(id);
+      const right = document.getElementById('aprendeRight');
+      if (target && right) {
+        right.scrollTo({ top: target.offsetTop - 24, behavior: 'smooth' });
+      }
+    }
+
+    // Tab switching
+    document.querySelectorAll('[data-aprende-tab]').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const idx = parseInt(this.dataset.aprendeTab);
+        if (idx === aprendeCurrentTab) return;
+        aprendeCurrentTab = idx;
+        document.querySelectorAll('[data-aprende-tab]').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        renderAprendeTab(idx);
+      });
+    });
+
+    // Scroll-to-top button logic
+    const aprendeRightEl = document.getElementById('aprendeRight');
+    const aprendeScrollTopBtn = document.getElementById('aprendeScrollTop');
+    if (aprendeRightEl && aprendeScrollTopBtn) {
+      aprendeRightEl.addEventListener('scroll', () => {
+        aprendeScrollTopBtn.classList.toggle('visible', aprendeRightEl.scrollTop > 120);
+      });
+      aprendeScrollTopBtn.addEventListener('click', () => {
+        aprendeRightEl.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Initialize on load
+    renderAprendeTab(0);
   </script>
   <!-- ────────── IMAGE MODAL ────────── -->
   <div class="modal-overlay" id="imageModal">
