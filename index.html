@@ -2481,10 +2481,10 @@
 
           <!-- Tabs superiores (alineados con el panel derecho) -->
           <div class="aprende-tabs-bar" id="aprendeTabs">
-            <button class="aprende-tab active" data-aprende-tab="0">Tab Placeholder 1</button>
-            <button class="aprende-tab" data-aprende-tab="1">Tab Placeholder 2</button>
-            <button class="aprende-tab" data-aprende-tab="2">Tab Placeholder 3</button>
-            <button class="aprende-tab" data-aprende-tab="3">Tab Placeholder 4</button>
+            <button class="aprende-tab active" data-aprende-tab="0">Introducción</button>
+            <button class="aprende-tab" data-aprende-tab="1">Medición</button>
+            <button class="aprende-tab" data-aprende-tab="2">Análisis y Herramientas</button>
+            <button class="aprende-tab" data-aprende-tab="3">Certificaciones Gratis</button>
           </div>
 
           <!-- Panel derecho con scroll independiente -->
@@ -3335,34 +3335,73 @@
     // ══════════════════════════════════════════════════
     const APRENDE_DATA = [
       {
-        tab: 'Tab Placeholder 1',
-        label: 'Sección 1',
+        tab: 'Introducción',
+        label: 'Introducción',
         titles: [
           {
             id: 'aprende-0-0',
-            title: 'Título Placeholder 1.1',
-            desc: 'Este es el contenido de descripción del primer título dentro del Tab 1. Las descripciones pueden ser tan largas como sea necesario. El panel derecho tiene scroll independiente, por lo que todo el contenido cabe sin problema. Aquí irá información detallada sobre este tema específico cuando se entregue el contenido real. Por ahora este texto sirve para verificar que el layout funciona correctamente, que el scroll interno opera de forma independiente al scroll general de la web, y que la navegación entre títulos funciona con el scroll suave esperado. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+            title: '¿Cómo se organiza el Banco?',
+            customHtml: `
+<div style="background-color: #1e1e1e; padding: 32px; border-radius: 12px; margin-bottom: 24px; color: #fff; font-family: 'Inter', sans-serif;">
+  <!-- Header -->
+  <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 28px;">
+    <div style="width: 38px; height: 38px; border-radius: 8px; background: #1A56DB; display: flex; align-items: center; justify-content: center;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="14" width="4" height="6" fill="white" rx="1"/>
+        <rect x="10" y="8" width="4" height="12" fill="white" rx="1"/>
+        <rect x="16" y="2" width="4" height="18" fill="white" rx="1"/>
+      </svg>
+    </div>
+    <h3 style="margin: 0; font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -0.3px;">Arquitectura de datos GA4</h3>
+  </div>
+
+  <!-- Callout box -->
+  <div style="background: #eff6ff; border-left: 4px solid #1A56DB; border-radius: 4px 8px 8px 4px; padding: 20px 24px; margin-bottom: 28px;">
+    <div style="font-size: 13px; font-weight: 800; color: #1A56DB; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">DATO CLAVE</div>
+    <div style="font-size: 15.5px; line-height: 1.5; color: #1e3a8a; font-weight: 400;">GA4 es la fuente oficial de verdad del banco — no solo mide, alimenta decisiones financieras y comerciales.</div>
+  </div>
+
+  <!-- Paragraph -->
+  <p style="font-size: 16px; line-height: 1.6; color: #d1d5db; margin-bottom: 28px;">
+    La arquitectura de datos está diseñada para la <strong style="color: #fff; font-weight: 600;">precisión</strong>. No medimos todo en una sola "bolsa"; operamos con un ecosistema <strong style="color: #fff; font-weight: 600;">segmentado de Propiedades de GA4</strong>: Personas, PyME, Grandes Empresas, entre otros.
+  </p>
+
+  <!-- Sublist Header -->
+  <h4 style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 16px;">Los datos recolectados van más allá de los gráficos:</h4>
+
+  <!-- List Items -->
+  <div style="display: flex; flex-direction: column; gap: 10px;">
+    <div style="background: #272a31; border: 1px solid #374151; border-radius: 8px; padding: 16px 20px; display: flex; align-items: center; gap: 14px;">
+      <div style="width: 6px; height: 6px; border-radius: 50%; background: #3b82f6;"></div>
+      <span style="font-size: 14.5px; color: #d1d5db; font-weight: 500;">Toma de decisiones financieras</span>
+    </div>
+    <div style="background: #272a31; border: 1px solid #374151; border-radius: 8px; padding: 16px 20px; display: flex; align-items: center; gap: 14px;">
+      <div style="width: 6px; height: 6px; border-radius: 50%; background: #3b82f6;"></div>
+      <span style="font-size: 14.5px; color: #d1d5db; font-weight: 500;">Optimización de presupuesto</span>
+    </div>
+    <div style="background: #272a31; border: 1px solid #374151; border-radius: 8px; padding: 16px 20px; display: flex; align-items: center; gap: 14px;">
+      <div style="width: 6px; height: 6px; border-radius: 50%; background: #3b82f6;"></div>
+      <span style="font-size: 14.5px; color: #d1d5db; font-weight: 500;">Personalización de la oferta comercial</span>
+    </div>
+  </div>
+</div>
+`
           },
           {
             id: 'aprende-0-1',
-            title: 'Título Placeholder 1.2',
-            desc: 'Descripción del segundo título del Tab 1. Este bloque contiene información complementaria que se despliega en el panel derecho de forma continua. Al pinchar este título en el panel izquierdo, el panel derecho hace scroll suave hasta esta posición específica. El título activo en el panel izquierdo se destaca visualmente con el color de marca y una línea lateral azul. Las descripciones pueden contener texto extenso y el scroll opera de manera completamente autónoma del resto de la página. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.'
+            title: '¿Que es GA4?',
+            desc: 'Contenido próximamente...'
           },
           {
             id: 'aprende-0-2',
-            title: 'Título Placeholder 1.3',
-            desc: 'Descripción del tercer título del Tab 1. El scroll del panel derecho es completamente independiente del scroll global de la web. Cuando el usuario hace scroll hacia abajo en el panel derecho, aparece el botón flotante de scroll-to-top que permite volver al inicio del panel con un click. Al cambiar de tab, el scroll del panel derecho vuelve automáticamente al inicio y el primer título del nuevo tab queda activo y destacado. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.'
-          },
-          {
-            id: 'aprende-0-3',
-            title: 'Título Placeholder 1.4',
-            desc: 'Descripción del cuarto título del Tab 1. Este es el último elemento de navegación de este tab. Cuando llegues a esta descripción, el botón de scroll hacia arriba estará visible para que puedas volver al inicio rápidamente. El contenido real de cada descripción será entregado en una segunda etapa. La estructura visual y funcional está completamente operativa. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.'
+            title: '¿Aptitud o GA4?',
+            desc: 'Contenido próximamente...'
           }
         ]
       },
       {
-        tab: 'Tab Placeholder 2',
-        label: 'Sección 2',
+        tab: 'Medición',
+        label: 'Medición',
         titles: [
           {
             id: 'aprende-1-0',
@@ -3382,8 +3421,8 @@
         ]
       },
       {
-        tab: 'Tab Placeholder 3',
-        label: 'Sección 3',
+        tab: 'Análisis y Herramientas',
+        label: 'Análisis y Herramientas',
         titles: [
           {
             id: 'aprende-2-0',
@@ -3403,8 +3442,8 @@
         ]
       },
       {
-        tab: 'Tab Placeholder 4',
-        label: 'Sección 4',
+        tab: 'Certificaciones Gratis',
+        label: 'Certificaciones Gratis',
         titles: [
           {
             id: 'aprende-3-0',
@@ -3452,7 +3491,11 @@
       `).join('');
 
       // Build descriptions
-      contentEl.innerHTML = tab.titles.map((t, i) => `
+      contentEl.innerHTML = tab.titles.map((t, i) => {
+        if (t.customHtml) {
+          return `<div class="aprende-desc" id="${t.id}">${t.customHtml}</div>`;
+        }
+        return `
         <div class="aprende-desc" id="${t.id}">
           <div class="aprende-desc-header">
             <div class="aprende-desc-num">${i + 1}</div>
@@ -3460,7 +3503,8 @@
           </div>
           <p>${t.desc}</p>
         </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function aprendeScrollTo(id, clickedBtn) {
